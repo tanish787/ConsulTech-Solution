@@ -1,0 +1,20 @@
+
+# Node Dependencies
+node_modules/
+frontend/node_modules/
+
+# Build Outputs
+build/
+frontend/build/
+dist/
+frontend/dist/
+
+# Logs
+npm-debug.log
+yarn-error.log
+*.log
+logs/
+
+# OS Files
+.DS_Store
+Thumbs.db
