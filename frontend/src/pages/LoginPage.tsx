@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../services/authContext';
-import apiService from '../services/apiService';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { loginByCompanyName, register } = useAuth();
   const [isRegister, setIsRegister] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   // Login form
   const [loginData, setLoginData] = useState({
-    email: '',
+    company_name: '',
     password: '',
   });
 
@@ -33,10 +32,10 @@ const LoginPage: React.FC = () => {
     setError('');
 
     try {
-      await login(loginData.email, loginData.password);
+      await loginByCompanyName(loginData.company_name, loginData.password);
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Login failed');
+      setError(err.message || 'Login failed');
     } finally {
       setLoading(false);
     }
@@ -48,13 +47,30 @@ const LoginPage: React.FC = () => {
     setError('');
 
     try {
-      await apiService.register(registerData);
+      await register(
+        registerData.email,
+        registerData.password,
+        registerData.company_name,
+        registerData.industry,
+        registerData.size,
+        registerData.website,
+        registerData.description
+      );
       setError('');
       setIsRegister(false);
-      setLoginData({ email: '', password: '' });
-      alert('Registration successful! Your profile is pending approval. You can login once approved.');
+      setLoginData({ company_name: '', password: '' });
+      setRegisterData({
+        email: '',
+        password: '',
+        company_name: '',
+        industry: '',
+        size: 'small',
+        website: '',
+        description: '',
+      });
+      navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Registration failed');
+      setError(err.message || 'Registration failed');
     } finally {
       setLoading(false);
     }
@@ -79,16 +95,16 @@ const LoginPage: React.FC = () => {
             <form onSubmit={handleLogin}>
               <div className="mb-6">
                 <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Username
+                  Company Name
                 </label>
                 <input
                   type="text"
-                  value={loginData.email}
+                  value={loginData.company_name}
                   onChange={(e) =>
-                    setLoginData({ ...loginData, email: e.target.value })
+                    setLoginData({ ...loginData, company_name: e.target.value })
                   }
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm"
-                  placeholder="Enter your username"
+                  placeholder="Enter your company name"
                   required
                 />
               </div>

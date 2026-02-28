@@ -20,15 +20,17 @@ const CompanyProfilePage: React.FC = () => {
   useEffect(() => {
     const fetchCompany = async () => {
       try {
-        const data = await apiService.getCompanyById(parseInt(id || ''));
+        const data = await apiService.getCompanyById(id || '');
         setCompany(data);
-        setEditData({
-          description: data.description,
-          industry: data.industry,
-          size: data.size,
-          website: data.website,
-        });
-        setIsOwner(data.id === user?.company_id);
+        if (data) {
+          setEditData({
+            description: data.description,
+            industry: data.industry,
+            size: data.size,
+            website: data.website,
+          });
+          setIsOwner(data.id === user?.company_id);
+        }
       } catch (err: any) {
         setError('Failed to load company profile');
       } finally {
@@ -41,7 +43,9 @@ const CompanyProfilePage: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      const updated = await apiService.updateCompany(parseInt(id || ''), editData);
+      await apiService.updateCompany(id || '', editData);
+      // Fetch updated company data
+      const updated = await apiService.getCompanyById(id || '');
       setCompany(updated);
       setIsEditing(false);
     } catch (err: any) {
@@ -58,8 +62,34 @@ const CompanyProfilePage: React.FC = () => {
 
   if (!company)
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        Company not found
+      <div className="min-h-screen bg-gray-50">
+        <NavBar
+          currentPage="directory"
+          onLogout={() => {
+            logout();
+            navigate('/login');
+          }}
+        />
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <button
+            onClick={() => navigate('/directory')}
+            className="mb-4 text-emerald-600 hover:underline"
+          >
+            ← Back to Network
+          </button>
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Company not found</h2>
+              <p className="text-gray-600 mb-6">The company you're looking for doesn't exist.</p>
+              <button
+                onClick={() => navigate('/directory')}
+                className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700"
+              >
+                Browse Network
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
 

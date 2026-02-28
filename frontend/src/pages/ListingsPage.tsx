@@ -16,7 +16,11 @@ const ListingsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [newListing, setNewListing] = useState({
+  const [newListing, setNewListing] = useState<{
+    title: string;
+    description: string;
+    category: 'resource' | 'event' | 'collaboration' | 'session';
+  }>({
     title: '',
     description: '',
     category: 'resource',
@@ -43,8 +47,19 @@ const ListingsPage: React.FC = () => {
 
   const handleCreateListing = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user?.company_id) {
+      setError('You must be logged in to create a listing');
+      return;
+    }
+
     try {
-      await apiService.createListing(newListing);
+      const now = new Date().toISOString();
+      await apiService.createListing({
+        ...newListing,
+        company_id: user.company_id,
+        created_at: now,
+        updated_at: now,
+      });
       setNewListing({ title: '', description: '', category: 'resource' });
       setShowCreateForm(false);
       // Refresh listings
@@ -52,7 +67,7 @@ const ListingsPage: React.FC = () => {
       setListings(updated);
     } catch (err: any) {
       setError(
-        err.response?.data?.error || 'Failed to create listing'
+        err.message || 'Failed to create listing'
       );
     }
   };
@@ -143,7 +158,7 @@ const ListingsPage: React.FC = () => {
                 <select
                   value={newListing.category}
                   onChange={(e) =>
-                    setNewListing({ ...newListing, category: e.target.value })
+                    setNewListing({ ...newListing, category: e.target.value as 'resource' | 'event' | 'collaboration' | 'session' })
                   }
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600"
                 >

@@ -1,12 +1,12 @@
 export interface User {
-  id: number;
+  id: string;
   email: string;
-  company_id: number;
+  company_id: string;
   role: string;
 }
 
 export interface Company {
-  id: number;
+  id: string;
   company_name: string;
   description: string;
   industry: string;
@@ -28,8 +28,8 @@ export interface Company {
 export type LoyaltyLevel = 'Explorer' | 'Participant' | 'Contributor' | 'Champion';
 
 export interface Listing {
-  id: number;
-  company_id: number;
+  id: string;
+  company_id: string;
   title: string;
   description: string;
   category: 'resource' | 'event' | 'collaboration' | 'session';

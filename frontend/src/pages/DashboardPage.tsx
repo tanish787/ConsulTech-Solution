@@ -17,17 +17,25 @@ const DashboardPage: React.FC = () => {
     const fetchCompany = async () => {
       try {
         if (user?.company_id) {
+          console.log('Fetching company with ID:', user.company_id);
           const data = await apiService.getCompanyById(user.company_id);
+          console.log('Company data:', data);
           setCompany(data);
         }
       } catch (err: any) {
-        setError('Failed to load company details');
+        console.error('Failed to load company:', err);
+        // Company data not found is not necessarily an error - user may not have a company yet
+        setError('');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCompany();
+    if (user) {
+      fetchCompany();
+    } else {
+      setLoading(false);
+    }
   }, [user]);
 
   if (loading)
@@ -39,8 +47,26 @@ const DashboardPage: React.FC = () => {
 
   if (!company)
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        Company not found
+      <div className="min-h-screen bg-gray-50">
+        <NavBar
+          currentPage="dashboard"
+          onLogout={() => {
+            logout();
+            navigate('/login');
+          }}
+        />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome!</h1>
+            <p className="text-gray-600 mb-6">Please complete your company registration to get started.</p>
+            <button
+              onClick={() => navigate('/directory')}
+              className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700"
+            >
+              Browse Network
+            </button>
+          </div>
+        </div>
       </div>
     );
 
