@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../services/authContext';
 import NavBar from '../components/NavBar';
 import LoyaltyBadge from '../components/LoyaltyBadge';
+import CompanyLogo from '../components/CompanyLogo';
 import { LoyaltyLevel } from '../types';
 
 // Template recommendation types for the Recommended Listings page (replace with API later)
@@ -135,10 +136,13 @@ const RecommendedListingsPage: React.FC = () => {
                 className="bg-white rounded-xl border border-gray-200 hover:border-emerald-300 hover:shadow-md transition-all duration-300 cursor-pointer p-6"
                 onClick={() => navigate(`/company/${company.id}`)}
               >
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg font-medium text-gray-900 flex-1">
-                    {company.company_name}
-                  </h3>
+                <div className="flex justify-between items-start gap-3 mb-3">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <CompanyLogo companyName={company.company_name} size="md" />
+                    <h3 className="text-lg font-medium text-gray-900 truncate">
+                      {company.company_name}
+                    </h3>
+                  </div>
                   <LoyaltyBadge level={company.loyalty_level} />
                 </div>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
@@ -184,8 +188,11 @@ const RecommendedListingsPage: React.FC = () => {
                 </p>
                 <p className="text-xs text-emerald-600 font-medium mb-1">Why recommended</p>
                 <p className="text-gray-500 text-sm italic mb-4">{listing.reason}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">{listing.company_name}</span>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <CompanyLogo companyName={listing.company_name} size="sm" />
+                    <span className="text-sm text-gray-500 truncate">{listing.company_name}</span>
+                  </div>
                   <button
                     onClick={() => navigate('/listings')}
                     className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
