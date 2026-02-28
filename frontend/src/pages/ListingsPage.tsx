@@ -4,6 +4,7 @@ import { useAuth } from '../services/authContext';
 import apiService from '../services/apiService';
 import NavBar from '../components/NavBar';
 import LoyaltyBadge from '../components/LoyaltyBadge';
+import CompanyLogo from '../components/CompanyLogo';
 import { Listing, Company } from '../types';
 
 const ListingsPage: React.FC = () => {
@@ -230,13 +231,20 @@ const ListingsPage: React.FC = () => {
                   {listing.description}
                 </p>
 
-                <div className="border-t pt-4">
-                  <p className="text-gray-700 font-semibold text-sm mb-2">
-                    {listing.company_name}
-                  </p>
-                  <p className="text-gray-500 text-xs">
-                    {new Date(listing.created_at).toLocaleDateString()}
-                  </p>
+                <div className="border-t pt-4 flex items-center gap-3">
+                  <CompanyLogo
+                    companyName={listing.company_name ?? 'Company'}
+                    logoUrl={listing.company_logo_url}
+                    size="sm"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-gray-700 font-semibold text-sm mb-0.5">
+                      {listing.company_name}
+                    </p>
+                    <p className="text-gray-500 text-xs">
+                      {new Date(listing.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

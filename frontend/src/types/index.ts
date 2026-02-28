@@ -21,6 +21,8 @@ export interface Company {
   computed_loyalty_level?: LoyaltyLevel;
   next_level?: LoyaltyLevel | null;
   months_until_next_level?: number | null;
+  /** Optional URL for company logo image */
+  logo_url?: string | null;
 }
 
 export type LoyaltyLevel = 'Explorer' | 'Participant' | 'Contributor' | 'Champion';
@@ -35,6 +37,8 @@ export interface Listing {
   updated_at: string;
   company_name?: string;
   company_loyalty_level?: LoyaltyLevel;
+  /** Optional URL for the listing company's logo */
+  company_logo_url?: string | null;
 }
 
 export interface AuthResponse {

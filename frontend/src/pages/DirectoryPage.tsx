@@ -4,6 +4,7 @@ import { useAuth } from '../services/authContext';
 import apiService from '../services/apiService';
 import NavBar from '../components/NavBar';
 import LoyaltyBadge from '../components/LoyaltyBadge';
+import CompanyLogo from '../components/CompanyLogo';
 import { Company, Filters } from '../types';
 
 const DirectoryPage: React.FC = () => {
@@ -203,14 +204,20 @@ const DirectoryPage: React.FC = () => {
                 onClick={() => setSelectedCompany(company)}
               >
                 <div className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-lg font-medium text-gray-900 flex-1 group-hover:text-emerald-700 transition-colors">
-                      {company.company_name}
-                    </h3>
-                  </div>
-
-                  <div className="mb-4">
-                    <LoyaltyBadge level={company.computed_loyalty_level || 'Explorer'} />
+                  <div className="flex items-start gap-3 mb-3">
+                    <CompanyLogo
+                      companyName={company.company_name}
+                      logoUrl={company.logo_url}
+                      size="md"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-lg font-medium text-gray-900 group-hover:text-emerald-700 transition-colors truncate">
+                        {company.company_name}
+                      </h3>
+                      <div className="mt-2">
+                        <LoyaltyBadge level={company.computed_loyalty_level || 'Explorer'} />
+                      </div>
+                    </div>
                   </div>
 
                   <p className="text-gray-600 mb-4 text-sm line-clamp-2 leading-relaxed h-10">
@@ -247,11 +254,17 @@ const DirectoryPage: React.FC = () => {
                 onClick={() => setSelectedCompany(company)}
               >
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-medium text-gray-900">{company.company_name}</h3>
-                      <LoyaltyBadge level={company.computed_loyalty_level || 'Explorer'} />
-                    </div>
+                  <div className="flex-1 flex items-start gap-3">
+                    <CompanyLogo
+                      companyName={company.company_name}
+                      logoUrl={company.logo_url}
+                      size="md"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-lg font-medium text-gray-900">{company.company_name}</h3>
+                        <LoyaltyBadge level={company.computed_loyalty_level || 'Explorer'} />
+                      </div>
                     <p className="text-gray-600 text-sm mb-3">{company.description}</p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
@@ -276,6 +289,7 @@ const DirectoryPage: React.FC = () => {
                         </span>
                       </div>
                     </div>
+                    </div>
                   </div>
                   <button className="ml-4 px-4 py-2 text-sm font-medium text-emerald-600 border border-emerald-300 rounded-lg hover:bg-emerald-50 transition-colors whitespace-nowrap">
                     View Profile
@@ -297,8 +311,15 @@ const DirectoryPage: React.FC = () => {
         {selectedCompany && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-                <h2 className="text-2xl font-light text-gray-900">{selectedCompany.company_name}</h2>
+              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <CompanyLogo
+                    companyName={selectedCompany.company_name}
+                    logoUrl={selectedCompany.logo_url}
+                    size="lg"
+                  />
+                  <h2 className="text-2xl font-light text-gray-900 truncate">{selectedCompany.company_name}</h2>
+                </div>
                 <button
                   onClick={() => setSelectedCompany(null)}
                   className="text-gray-500 hover:text-gray-700 text-2xl"
@@ -309,7 +330,7 @@ const DirectoryPage: React.FC = () => {
 
               <div className="p-6">
                 <div className="mb-6">
-                  <LoyaltyBadge level={selectedCompany.computed_loyalty_level || 'Explorer'} className="mb-4" />
+                  <LoyaltyBadge level={selectedCompany.computed_loyalty_level || 'Explorer'} className="mb-4 inline-block" />
                   <p className="text-gray-600 leading-relaxed">{selectedCompany.description}</p>
                 </div>
 
