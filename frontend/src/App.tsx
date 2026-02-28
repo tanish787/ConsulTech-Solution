@@ -6,7 +6,7 @@ import DashboardPage from './pages/DashboardPage';
 import DirectoryPage from './pages/DirectoryPage';
 import CompanyProfilePage from './pages/CompanyProfilePage';
 import ListingsPage from './pages/ListingsPage';
-import ForYouPage from './pages/ForYouPage';
+import RecommendedListingsPage from './pages/RecommendedListingsPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -68,10 +68,10 @@ function AppRoutes() {
         }
       />
       <Route
-        path="/for-you"
+        path="/recommended-listings"
         element={
           <ProtectedRoute>
-            <ForYouPage />
+            <RecommendedListingsPage />
           </ProtectedRoute>
         }
       />

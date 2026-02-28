@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar';
 import LoyaltyBadge from '../components/LoyaltyBadge';
 import { LoyaltyLevel } from '../types';
 
-// Template recommendation types for the "For You" page (replace with API later)
+// Template recommendation types for the Recommended Listings page (replace with API later)
 interface RecommendedCompany {
   id: number;
   company_name: string;
@@ -83,7 +83,7 @@ const MOCK_RECOMMENDED_LISTINGS: RecommendedListing[] = [
   },
 ];
 
-const ForYouPage: React.FC = () => {
+const RecommendedListingsPage: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [loading] = useState(false);
@@ -99,7 +99,7 @@ const ForYouPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <NavBar
-        currentPage="forYou"
+        currentPage="recommendedListings"
         onLogout={() => {
           logout();
           navigate('/login');
@@ -109,7 +109,7 @@ const ForYouPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-light text-gray-900">For You</h1>
+          <h1 className="text-4xl font-light text-gray-900">Recommended Listings</h1>
           <p className="text-gray-500 mt-2">
             Personalized recommendations based on your organization’s profile and activity in the CIC network.
           </p>
@@ -157,7 +157,7 @@ const ForYouPage: React.FC = () => {
         {/* Recommended listings */}
         <section className="mb-12">
           <h2 className="text-2xl font-light text-gray-900 mb-2">
-            Listings for you
+            Recommended listings
           </h2>
           <p className="text-gray-500 text-sm mb-6">
             Resources, events, and collaborations that match your profile
@@ -201,7 +201,7 @@ const ForYouPage: React.FC = () => {
         {/* Placeholder for future sections */}
         <section className="bg-white rounded-xl border border-gray-200 border-dashed p-8 text-center">
           <p className="text-gray-400 text-sm">
-            More personalized sections (e.g. “Upcoming events for you”, “Suggested actions”) can be added here once the recommendations API is connected.
+            More personalized sections (e.g. “Upcoming events”, “Suggested actions”) can be added here once the recommendations API is connected.
           </p>
         </section>
       </div>
@@ -209,4 +209,4 @@ const ForYouPage: React.FC = () => {
   );
 };
 
-export default ForYouPage;
+export default RecommendedListingsPage;
