@@ -43,6 +43,16 @@ const NavBar: React.FC<NavBarProps> = ({ onLogout, currentPage }) => {
               >
                 Listings
               </a>
+              <a
+                href="/for-you"
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
+                  currentPage === 'forYou'
+                    ? 'text-emerald-600 border-b-2 border-emerald-600'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                For You
+              </a>
             </div>
           </div>
           <button
