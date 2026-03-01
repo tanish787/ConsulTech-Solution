@@ -62,22 +62,39 @@ export const getAllCompanies = async (
 
     // Sort in JavaScript to handle null values gracefully
     companies.sort((a, b) => {
-      let aVal = a[sortBy as keyof Company];
-      let bVal = b[sortBy as keyof Company];
+      // Map frontend sort values to field names
+      let sortField = sortBy;
+      if (sortBy === 'duration') {
+        sortField = 'membership_duration_months';
+      } else if (sortBy === 'loyalty') {
+        sortField = 'computed_loyalty_level';
+      }
+
+      let aVal = a[sortField as keyof Company];
+      let bVal = b[sortField as keyof Company];
 
       // Handle null/undefined values
       if (aVal == null && bVal == null) return 0;
       if (aVal == null) return 1;
       if (bVal == null) return -1;
 
-      // For strings, compare case-insensitively
-      if (typeof aVal === 'string' && typeof bVal === 'string') {
-        return bVal.localeCompare(aVal);
+      // Special handling for loyalty level sorting
+      if (sortField === 'computed_loyalty_level') {
+        const loyaltyOrder = { 'Bronze': 0, 'Silver': 1, 'Gold': 2, 'Platinum': 3 };
+        const aLevel = loyaltyOrder[aVal as LoyaltyLevel] ?? -1;
+        const bLevel = loyaltyOrder[bVal as LoyaltyLevel] ?? -1;
+        // Sort ascending (Bronze first, Platinum last)
+        return aLevel - bLevel;
       }
 
-      // For numbers, sort descending
+      // For strings, compare case-insensitively
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        return aVal.localeCompare(bVal);
+      }
+
+      // For numbers, sort ascending (shortest duration first)
       if (typeof aVal === 'number' && typeof bVal === 'number') {
-        return bVal - aVal;
+        return aVal - bVal;
       }
 
       return 0;
