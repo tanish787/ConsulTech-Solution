@@ -10,7 +10,7 @@ import {
   doc,
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
-import { Company, Listing, Filters, LoyaltyLevel } from '../types';
+import { Company, Listing, Filters, LoyaltyLevel, CompanyRequest } from '../types';
 
 // Utility function to calculate loyalty level based on membership duration
 export const calculateLoyaltyLevel = (membershipDurationMonths: number | null | undefined): LoyaltyLevel => {
@@ -305,6 +305,49 @@ export const getEmailByCompanyName = async (companyName: string): Promise<string
     return null;
   } catch (error) {
     console.error('Error fetching email by company name:', error);
+    throw error;
+  }
+};
+
+// Company Requests (what companies are looking for)
+export const getRequestsByCompany = async (companyId: string): Promise<CompanyRequest[]> => {
+  try {
+    const requestsRef = collection(db, 'company_requests');
+    const q = query(requestsRef, where('company_id', '==', companyId));
+    const snapshot = await getDocs(q);
+    
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as CompanyRequest[];
+  } catch (error) {
+    console.error('Error fetching company requests:', error);
+    throw error;
+  }
+};
+
+export const createCompanyRequest = async (data: Omit<CompanyRequest, 'id'>, userId: string): Promise<string> => {
+  try {
+    const requestsRef = collection(db, 'company_requests');
+    const docRef = await addDoc(requestsRef, {
+      ...data,
+      user_id: userId,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error('Error creating company request:', error);
+    throw error;
+  }
+};
+
+export const deleteCompanyRequest = async (id: string): Promise<void> => {
+  try {
+    const docRef = doc(db, 'company_requests', id);
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.error('Error deleting company request:', error);
     throw error;
   }
 };

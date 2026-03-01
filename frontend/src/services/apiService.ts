@@ -1,4 +1,4 @@
-import { Company, Listing, Filters } from '../types';
+import { Company, Listing, Filters, CompanyRequest } from '../types';
 import * as firebaseService from './firebaseService';
 
 class ApiService {
@@ -55,6 +55,18 @@ class ApiService {
 
   async deleteListing(id: string): Promise<void> {
     return firebaseService.deleteListing(id);
+  }
+
+  async getRequestsByCompany(companyId: string): Promise<CompanyRequest[]> {
+    return firebaseService.getRequestsByCompany(companyId);
+  }
+
+  async createCompanyRequest(data: Omit<CompanyRequest, 'id'>, userId: string): Promise<string> {
+    return firebaseService.createCompanyRequest(data, userId);
+  }
+
+  async deleteCompanyRequest(id: string): Promise<void> {
+    return firebaseService.deleteCompanyRequest(id);
   }
 }
 

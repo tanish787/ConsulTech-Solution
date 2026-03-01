@@ -4,20 +4,31 @@ import { useAuth } from '../services/authContext';
 import apiService from '../services/apiService';
 import NavBar from '../components/NavBar';
 import LoyaltyBadge from '../components/LoyaltyBadge';
-import { Company, Listing } from '../types';
+import { Company, Listing, CompanyRequest } from '../types';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [company, setCompany] = useState<Company | null>(null);
   const [listings, setListings] = useState<Listing[]>([]);
+  const [requests, setRequests] = useState<CompanyRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showCreateListing, setShowCreateListing] = useState(false);
+  const [showCreateRequest, setShowCreateRequest] = useState(false);
   const [newListing, setNewListing] = useState<{
     title: string;
     description: string;
     category: 'resource' | 'event' | 'collaboration' | 'session';
+  }>({
+    title: '',
+    description: '',
+    category: 'resource',
+  });
+  const [newRequest, setNewRequest] = useState<{
+    title: string;
+    description: string;
+    category: 'resource' | 'event' | 'collaboration' | 'session' | 'partnership';
   }>({
     title: '',
     description: '',
@@ -37,6 +48,10 @@ const DashboardPage: React.FC = () => {
           if (data) {
             const companyListings = await apiService.getListingsByCompany(data.id);
             setListings(companyListings);
+            
+            // Fetch requests for this company
+            const companyRequests = await apiService.getRequestsByCompany(data.id);
+            setRequests(companyRequests);
           }
         }
       } catch (err: any) {
@@ -74,6 +89,66 @@ const DashboardPage: React.FC = () => {
       setError('');
     } catch (err: any) {
       setError('Failed to create listing');
+    }
+  };
+
+  const handleDeleteListing = async (listingId: string) => {
+    if (!window.confirm('Are you sure you want to delete this listing? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await apiService.deleteListing(listingId);
+      // Refresh listings
+      if (company) {
+        const updatedListings = await apiService.getListingsByCompany(company.id);
+        setListings(updatedListings);
+      }
+      setError('');
+    } catch (err: any) {
+      setError('Failed to delete listing');
+    }
+  };
+
+  const handleCreateRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!company || !user) return;
+
+    try {
+      const now = new Date().toISOString();
+      await apiService.createCompanyRequest({
+        ...newRequest,
+        company_id: company.id,
+        company_name: company.company_name,
+        created_at: now,
+        updated_at: now,
+      }, user.id);
+      // Refresh requests
+      const updatedRequests = await apiService.getRequestsByCompany(company.id);
+      setRequests(updatedRequests);
+      setNewRequest({ title: '', description: '', category: 'resource' });
+      setShowCreateRequest(false);
+      setError('');
+    } catch (err: any) {
+      setError('Failed to create request');
+    }
+  };
+
+  const handleDeleteRequest = async (requestId: string) => {
+    if (!window.confirm('Are you sure you want to delete this request?')) {
+      return;
+    }
+
+    try {
+      await apiService.deleteCompanyRequest(requestId);
+      // Refresh requests
+      if (company) {
+        const updatedRequests = await apiService.getRequestsByCompany(company.id);
+        setRequests(updatedRequests);
+      }
+      setError('');
+    } catch (err: any) {
+      setError('Failed to delete request');
     }
   };
 
@@ -390,10 +465,19 @@ const DashboardPage: React.FC = () => {
                     {listing.description}
                   </p>
 
-                  <div className="pt-4 border-t border-gray-100">
+                  <div className="pt-4 border-t border-gray-100 space-y-3">
                     <p className="text-xs text-gray-500">
                       Created on {new Date(listing.created_at).toLocaleDateString()}
                     </p>
+                    
+                    {canCreateListings && (
+                      <button
+                        onClick={() => handleDeleteListing(listing.id)}
+                        className="w-full px-3 py-2 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -411,6 +495,151 @@ const DashboardPage: React.FC = () => {
                   Create a listing once you reach Silver tier (3 months)
                 </p>
               )}
+            </div>
+          )}
+        </div>
+
+        {/* Company Requests Section */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-light text-gray-900">What We're Looking For</h2>
+              <p className="text-gray-500 text-sm mt-1">{requests.length} active requests</p>
+            </div>
+            <button
+              onClick={() => setShowCreateRequest(!showCreateRequest)}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
+            >
+              {showCreateRequest ? 'Cancel' : '+ Add Request'}
+            </button>
+          </div>
+
+          {/* Create Request Form */}
+          {showCreateRequest && (
+            <div className="bg-white rounded-xl border border-gray-200 p-8 mb-8">
+              <h3 className="text-xl font-medium text-gray-900 mb-6">Create New Request</h3>
+              <form onSubmit={handleCreateRequest} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    What are you looking for? *
+                  </label>
+                  <input
+                    type="text"
+                    value={newRequest.title}
+                    onChange={(e) =>
+                      setNewRequest({ ...newRequest, title: e.target.value })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    placeholder="Describe what you are looking for"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Category *
+                  </label>
+                  <select
+                    value={newRequest.category}
+                    onChange={(e) =>
+                      setNewRequest({
+                        ...newRequest,
+                        category: e.target.value as 'resource' | 'event' | 'collaboration' | 'session' | 'partnership',
+                      })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  >
+                    <option value="resource">Resource/Service</option>
+                    <option value="partnership">Partnership</option>
+                    <option value="collaboration">Collaboration</option>
+                    <option value="event">Event/Training</option>
+                    <option value="session">Knowledge/Expertise</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Details *
+                  </label>
+                  <textarea
+                    value={newRequest.description}
+                    onChange={(e) =>
+                      setNewRequest({
+                        ...newRequest,
+                        description: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    placeholder="Describe what you're looking for and why"
+                    rows={4}
+                    required
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <button
+                    type="submit"
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
+                  >
+                    Post Request
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowCreateRequest(false);
+                      setNewRequest({ title: '', description: '', category: 'resource' });
+                    }}
+                    className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {/* Requests Grid */}
+          {requests.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {requests.map((request) => (
+                <div
+                  key={request.id}
+                  className="bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all p-6"
+                >
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <h3 className="text-lg font-medium text-gray-900 flex-1">
+                      {request.title}
+                    </h3>
+                    <span className="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-700 rounded whitespace-nowrap capitalize">
+                      {request.category}
+                    </span>
+                  </div>
+
+                  <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
+                    {request.description}
+                  </p>
+
+                  <div className="pt-4 border-t border-gray-100 space-y-3">
+                    <p className="text-xs text-gray-500">
+                      Posted on {new Date(request.created_at).toLocaleDateString()}
+                    </p>
+                    
+                    <button
+                      onClick={() => handleDeleteRequest(request.id)}
+                      className="w-full px-3 py-2 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white rounded-lg border border-gray-200 border-dashed p-12 text-center">
+              <p className="text-gray-600 text-lg mb-2">No requests yet</p>
+              <p className="text-gray-500 text-sm">
+                Click "Add Request" to post what you're looking for
+              </p>
             </div>
           )}
         </div>

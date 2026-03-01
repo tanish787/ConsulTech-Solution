@@ -43,6 +43,17 @@ export interface Listing {
   company_logo_url?: string | null;
 }
 
+export interface CompanyRequest {
+  id: string;
+  company_id: string;
+  title: string;
+  description: string;
+  category: 'resource' | 'event' | 'collaboration' | 'session' | 'partnership';
+  created_at: string;
+  updated_at: string;
+  company_name?: string;
+}
+
 export interface AuthResponse {
   token: string;
   user: User;
