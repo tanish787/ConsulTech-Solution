@@ -222,9 +222,12 @@ const ListingsPage: React.FC = () => {
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    <h3 className="text-xl font-bold text-gray-800 mb-1">
                       {listing.title}
                     </h3>
+                    <p className="text-sm text-gray-600 mb-2">
+                      {listing.company_name ?? 'Company'}
+                    </p>
                     <div className="flex gap-2 items-center">
                       <span className="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-800 rounded">
                         {listing.category}
