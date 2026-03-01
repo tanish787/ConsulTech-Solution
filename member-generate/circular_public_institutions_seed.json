@@ -1,0 +1,30 @@
+[
+  {
+    "company_name": "ETS",
+    "website": "https://www.etsmtl.ca"
+  },
+  {
+    "company_name": "Ottawa University",
+    "website": "https://www.uottawa.ca"
+  },
+  {
+    "company_name": "Queen's University",
+    "website": "https://www.queensu.ca"
+  },
+  {
+    "company_name": "Toronto University",
+    "website": "https://www.utoronto.ca"
+  },
+  {
+    "company_name": "United Health Network",
+    "website": "https://talkintrashwithuhn.com"
+  },
+  {
+    "company_name": "Wilfrid Laurier University",
+    "website": "https://www.wlu.ca"
+  },
+  {
+    "company_name": "York University",
+    "website": "https://www.yorku.ca"
+  }
+]

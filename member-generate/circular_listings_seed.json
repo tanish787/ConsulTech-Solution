@@ -1,0 +1,149 @@
+[
+  {
+    "listing_id": "canada_post_mailer_surplus",
+    "owner_name": "Canada Post",
+    "title": "Surplus corrugated mailers available for reuse",
+    "listing_type": "offer",
+    "category": "packaging"
+  },
+  {
+    "listing_id": "cascades_offspec_fibre_rolls",
+    "owner_name": "Cascades",
+    "title": "Off-spec recycled fibre rolls for secondary use",
+    "listing_type": "offer",
+    "category": "paper_and_fibre"
+  },
+  {
+    "listing_id": "chep_pallet_redeployment",
+    "owner_name": "CHEP",
+    "title": "Seasonal pallet surplus needs temporary redeployment partners",
+    "listing_type": "exchange",
+    "category": "logistics_assets"
+  },
+  {
+    "listing_id": "circular_materials_bin_pilot",
+    "owner_name": "Circular Materials",
+    "title": "Seeking pilot sites for standardized collection bins",
+    "listing_type": "pilot",
+    "category": "collection_systems"
+  },
+  {
+    "listing_id": "friendlier_restaurant_expansion",
+    "owner_name": "Friendlier",
+    "title": "Need food-service partners for reusable container rollout",
+    "listing_type": "request",
+    "category": "reusables"
+  },
+  {
+    "listing_id": "general_mills_display_materials",
+    "owner_name": "General Mills",
+    "title": "Excess display-ready packaging materials available",
+    "listing_type": "offer",
+    "category": "packaging"
+  },
+  {
+    "listing_id": "gfl_rigid_plastics_outlet",
+    "owner_name": "GFL Environmental",
+    "title": "Looking for end markets for clean rigid plastics",
+    "listing_type": "request",
+    "category": "plastics"
+  },
+  {
+    "listing_id": "emterra_mixed_plastics_trial",
+    "owner_name": "Emterra Group",
+    "title": "Seeking pilot partners for harder-to-recycle plastics",
+    "listing_type": "pilot",
+    "category": "plastics"
+  },
+  {
+    "listing_id": "goodwill_textile_upcycling",
+    "owner_name": "Goodwill Industries",
+    "title": "Need textile upcycling partners for unsellable apparel",
+    "listing_type": "request",
+    "category": "textiles"
+  },
+  {
+    "listing_id": "united_health_network_linen_reuse",
+    "owner_name": "United Health Network",
+    "title": "Seeking reuse channel for surplus hospital linens",
+    "listing_type": "request",
+    "category": "healthcare_textiles"
+  },
+  {
+    "listing_id": "york_university_lab_furniture",
+    "owner_name": "York University",
+    "title": "Lab and office furniture available from renovation turnover",
+    "listing_type": "offer",
+    "category": "furniture_and_fixtures"
+  },
+  {
+    "listing_id": "ottawa_university_device_reuse",
+    "owner_name": "Ottawa University",
+    "title": "Seeking refurbishers for retired student-facing devices",
+    "listing_type": "request",
+    "category": "electronics"
+  },
+  {
+    "listing_id": "exhibition_place_event_material_reuse",
+    "owner_name": "Exhibition Place",
+    "title": "Event signage and build materials available after major shows",
+    "listing_type": "offer",
+    "category": "event_materials"
+  },
+  {
+    "listing_id": "busch_systems_bin_refurbish_program",
+    "owner_name": "Busch Systems",
+    "title": "Need pilot customers for recycling bin refurbishment",
+    "listing_type": "pilot",
+    "category": "refurbishment"
+  },
+  {
+    "listing_id": "efs_plastics_offcolor_pellets",
+    "owner_name": "EFS Plastics",
+    "title": "Off-colour recycled resin available for non-aesthetic products",
+    "listing_type": "offer",
+    "category": "plastics"
+  },
+  {
+    "listing_id": "electronics_recycling_services_refurb",
+    "owner_name": "Electronics Recycling Services",
+    "title": "Seeking refurbishers for reusable display equipment",
+    "listing_type": "request",
+    "category": "electronics"
+  },
+  {
+    "listing_id": "canadian_coalition_green_health_reusable_gowns",
+    "owner_name": "Canadian Coalition for Green Health Care",
+    "title": "Need suppliers and pilot hospitals for reusable textiles",
+    "listing_type": "pilot",
+    "category": "healthcare_reusables"
+  },
+  {
+    "listing_id": "city_of_montreal_furniture_reuse",
+    "owner_name": "City of Montreal",
+    "title": "Municipal office furniture available for community reuse",
+    "listing_type": "offer",
+    "category": "furniture_and_fixtures"
+  },
+  {
+    "listing_id": "envirocentre_bike_parts_diversion",
+    "owner_name": "EnviroCentre",
+    "title": "Need repair and training partners for donated bike parts",
+    "listing_type": "request",
+    "category": "mobility_and_repair"
+  },
+  {
+    "listing_id": "queen_s_university_dorm_reuse",
+    "owner_name": "Queen's University",
+    "title": "Dorm move-out program needs local reuse partners",
+    "listing_type": "request",
+    "category": "campus_reuse"
+  },
+  {
+    "listing_id": "circular_partners_transport_packaging",
+    "owner_name": "Circular Partners",
+    "title": "Seeking partners for reusable transport packaging pilot",
+    "listing_type": "pilot",
+    "category": "transport_packaging"
+  }
+]

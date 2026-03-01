@@ -1,0 +1,787 @@
+{
+  "10c": {
+    "company_name": "10C",
+    "member_category": "associations_non_profits",
+    "description": "10C is a community-focused social enterprise hub that supports local collaboration, entrepreneurship, and practical sustainability-minded initiatives."
+  },
+  "abcrc": {
+    "company_name": "ABCRC",
+    "member_category": "associations_non_profits",
+    "description": "ABCRC is a beverage-container recovery organization focused on collection systems, recycling performance, and stronger circular outcomes for packaged drinks."
+  },
+  "aet": {
+    "company_name": "AET",
+    "member_category": "businesses",
+    "description": "AET is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "aham": {
+    "company_name": "AHAM",
+    "member_category": "associations_non_profits",
+    "description": "AHAM is an appliance-industry association whose work relates to product stewardship, standards, and longer-life consumer goods systems."
+  },
+  "bag_to_earth": {
+    "company_name": "Bag to Earth",
+    "member_category": "businesses",
+    "description": "Bag to Earth develops packaging or material solutions aligned with composting and lower-waste product systems."
+  },
+  "bgis": {
+    "company_name": "BGIS",
+    "member_category": "businesses",
+    "description": "BGIS is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "bluewater_recycling_assoc": {
+    "company_name": "Bluewater Recycling Assoc",
+    "member_category": "municipalities_government",
+    "description": "Bluewater Recycling Assoc is a regional public-sector recycling partnership focused on diversion systems and shared resource-management services."
+  },
+  "boma": {
+    "company_name": "BOMA",
+    "member_category": "associations_non_profits",
+    "description": "BOMA is a commercial real-estate association supporting building operations, property management, and more resource-efficient facilities."
+  },
+  "bowen_island": {
+    "company_name": "Bowen Island",
+    "member_category": "municipalities_government",
+    "description": "Bowen Island is a local municipality where community-scale services and stewardship efforts can support practical circular initiatives."
+  },
+  "brantford": {
+    "company_name": "Brantford",
+    "member_category": "municipalities_government",
+    "description": "Brantford is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "brockville": {
+    "company_name": "Brockville",
+    "member_category": "municipalities_government",
+    "description": "Brockville is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "brookstone_strategy_group": {
+    "company_name": "Brookstone Strategy Group",
+    "member_category": "businesses",
+    "description": "Brookstone Strategy Group acts as an operational or strategic partner helping organizations improve waste, materials, or procurement practices."
+  },
+  "busch_systems": {
+    "company_name": "Busch Systems",
+    "member_category": "businesses",
+    "description": "Busch Systems is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "byward_market_district_authority": {
+    "company_name": "ByWard Market District Authority",
+    "member_category": "associations_non_profits",
+    "description": "ByWard Market District Authority supports a major public-market district where local commerce, placemaking, and operational sustainability intersect."
+  },
+  "canada_plastics_pact": {
+    "company_name": "Canada Plastics Pact",
+    "member_category": "associations_non_profits",
+    "description": "Canada Plastics Pact is a cross-sector initiative focused on reducing plastic waste through redesign, reuse, recyclability, and system-level collaboration."
+  },
+  "canada_post": {
+    "company_name": "Canada Post",
+    "member_category": "businesses",
+    "description": "Canada Post is a national logistics network whose packaging, transport, and return flows matter for circular operations."
+  },
+  "canadian_coalition_for_green_health_care": {
+    "company_name": "Canadian Coalition for Green Health Care",
+    "member_category": "associations_non_profits",
+    "description": "Canadian Coalition for Green Health Care brings together healthcare stakeholders working to reduce waste and improve sustainability across the health sector."
+  },
+  "cari": {
+    "company_name": "CARI",
+    "member_category": "associations_non_profits",
+    "description": "CARI is an industry association tied to recycling and resource recovery, helping connect stakeholders around circular materials and market development."
+  },
+  "carton_council_of_canada": {
+    "company_name": "Carton Council of Canada",
+    "member_category": "associations_non_profits",
+    "description": "Carton Council of Canada works to improve carton collection, recycling access, and public awareness around carton recovery systems."
+  },
+  "cascades": {
+    "company_name": "Cascades",
+    "member_category": "businesses",
+    "description": "Cascades is linked to paper, packaging, or materials systems where recycled content and recovery matter."
+  },
+  "cathys_crawly_composters": {
+    "company_name": "Cathy's Crawly Composters",
+    "member_category": "associations_non_profits",
+    "description": "Cathy's Crawly Composters promotes organics diversion and composting-focused solutions that turn food and yard waste into useful soil inputs."
+  },
+  "cba": {
+    "company_name": "CBA",
+    "member_category": "associations_non_profits",
+    "description": "CBA is a beverage-sector association with a clear stake in packaging systems, product stewardship, and circular supply-chain practices."
+  },
+  "cd_sonter": {
+    "company_name": "CD Sonter",
+    "member_category": "businesses",
+    "description": "CD Sonter is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "chep": {
+    "company_name": "CHEP",
+    "member_category": "businesses",
+    "description": "CHEP operates in logistics, packaging movement, or shared-use systems where return flows and material efficiency matter."
+  },
+  "cial_group": {
+    "company_name": "CIAL Group",
+    "member_category": "associations_non_profits",
+    "description": "CIAL Group contributes advisory, standards, or assessment-oriented expertise that can support stronger environmental and operational performance."
+  },
+  "circular_materials": {
+    "company_name": "Circular Materials",
+    "member_category": "associations_non_profits",
+    "description": "Circular Materials is a producer-responsibility organization focused on collection, recycling, and packaging material recovery at scale."
+  },
+  "circular_partners": {
+    "company_name": "Circular Partners",
+    "member_category": "businesses",
+    "description": "Circular Partners works as a strategic partner helping organizations move toward more circular systems."
+  },
+  "circulr": {
+    "company_name": "Circulr",
+    "member_category": "businesses",
+    "description": "Circulr is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "city_of_greater_sudbury": {
+    "company_name": "City of Greater Sudbury",
+    "member_category": "municipalities_government",
+    "description": "City of Greater Sudbury is a municipal government responsible for local services and infrastructure, making it a practical venue for circular programs in Greater Sudbury."
+  },
+  "city_of_montreal": {
+    "company_name": "City of Montreal",
+    "member_category": "municipalities_government",
+    "description": "City of Montreal is a municipal government responsible for local services and infrastructure, making it a practical venue for circular programs in Montreal."
+  },
+  "city_of_st_johns": {
+    "company_name": "City of St. John's",
+    "member_category": "municipalities_government",
+    "description": "City of St. John's is a municipal government responsible for local services and infrastructure, making it a practical venue for circular programs in St. John's."
+  },
+  "clean_foundation": {
+    "company_name": "Clean Foundation",
+    "member_category": "associations_non_profits",
+    "description": "Clean Foundation is an environmental non-profit that delivers programs supporting sustainability, waste reduction, and community action."
+  },
+  "climate_wise": {
+    "company_name": "Climate Wise",
+    "member_category": "associations_non_profits",
+    "description": "Climate Wise is a community sustainability organization centered on practical action, education, and lower-impact local living."
+  },
+  "colour_alchemist": {
+    "company_name": "Colour Alchemist",
+    "member_category": "businesses",
+    "description": "Colour Alchemist is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "com2_recycling_solutions": {
+    "company_name": "COM2 Recycling Solutions",
+    "member_category": "businesses",
+    "description": "COM2 Recycling Solutions focuses on collection, processing, or recovery systems that keep materials in circulation."
+  },
+  "compost_council_of_canada": {
+    "company_name": "Compost Council of Canada",
+    "member_category": "associations_non_profits",
+    "description": "Compost Council of Canada advances composting, organics diversion, and soil-building practices as part of more circular material systems."
+  },
+  "cornwall": {
+    "company_name": "Cornwall",
+    "member_category": "municipalities_government",
+    "description": "Cornwall is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "cpche": {
+    "company_name": "CPCHE",
+    "member_category": "associations_non_profits",
+    "description": "CPCHE is an environmental-health organization focused on safer environments for children and more thoughtful material decisions."
+  },
+  "creative_polymer_solutions": {
+    "company_name": "Creative Polymer Solutions",
+    "member_category": "businesses",
+    "description": "Creative Polymer Solutions focuses on polymer or materials innovation aimed at improving reuse, recycled content, or circular product design."
+  },
+  "csa": {
+    "company_name": "CSA",
+    "member_category": "associations_non_profits",
+    "description": "CSA is a standards-focused organization whose work can shape consistent, scalable, and safer product and system practices."
+  },
+  "csi": {
+    "company_name": "CSI",
+    "member_category": "associations_non_profits",
+    "description": "CSI is an innovation hub that supports social enterprise, entrepreneurship, and mission-driven collaboration across sectors."
+  },
+  "cwma": {
+    "company_name": "CWMA",
+    "member_category": "associations_non_profits",
+    "description": "CWMA is a waste-management association that supports sector learning, operational best practices, and collaboration on resource recovery."
+  },
+  "definity_financial_corporation": {
+    "company_name": "Definity Financial Corporation",
+    "member_category": "businesses",
+    "description": "Definity Financial Corporation is a financial-services company whose operations, procurement, and business policies can support lower-waste practices."
+  },
+  "dispersa": {
+    "company_name": "Dispersa",
+    "member_category": "businesses",
+    "description": "Dispersa is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "dufferin": {
+    "company_name": "Dufferin",
+    "member_category": "municipalities_government",
+    "description": "Dufferin is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "durham": {
+    "company_name": "Durham",
+    "member_category": "municipalities_government",
+    "description": "Durham is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "earth_day": {
+    "company_name": "Earth Day",
+    "member_category": "associations_non_profits",
+    "description": "Earth Day is an environmental engagement organization that helps connect public education, campaigns, and practical sustainability action."
+  },
+  "earthub": {
+    "company_name": "Earthub",
+    "member_category": "associations_non_profits",
+    "description": "Earthub is a sustainability-focused platform or initiative that helps connect people and organizations around practical circular action."
+  },
+  "eccc": {
+    "company_name": "ECCC",
+    "member_category": "municipalities_government",
+    "description": "ECCC is a federal environmental department that shapes policy, regulation, and national direction on sustainability-related issues."
+  },
+  "eco_caledon": {
+    "company_name": "Eco Caledon",
+    "member_category": "associations_non_profits",
+    "description": "Eco Caledon is a local environmental group that promotes community education, stewardship, and lower-waste living."
+  },
+  "eco_growth_solutions": {
+    "company_name": "Eco-Growth Solutions",
+    "member_category": "businesses",
+    "description": "Eco-Growth Solutions provides solutions-oriented support for waste, materials, or operational improvement."
+  },
+  "eco_safe": {
+    "company_name": "Eco-Safe",
+    "member_category": "businesses",
+    "description": "Eco-Safe is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "ecocup_by_re_uz": {
+    "company_name": "Ecocup by RE-UZ",
+    "member_category": "businesses",
+    "description": "Ecocup by RE-UZ is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "ecomaterials_inc": {
+    "company_name": "Ecomaterials Inc.",
+    "member_category": "businesses",
+    "description": "Ecomaterials Inc. works with materials recovery, processing, or feedstocks that help keep resources in use longer."
+  },
+  "edmonton": {
+    "company_name": "Edmonton",
+    "member_category": "municipalities_government",
+    "description": "Edmonton is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "eeq": {
+    "company_name": "EEQ",
+    "member_category": "associations_non_profits",
+    "description": "EEQ is a producer-responsibility organization focused on recovery systems and more circular management of packaging and related materials."
+  },
+  "efs_plastics": {
+    "company_name": "EFS Plastics",
+    "member_category": "businesses",
+    "description": "EFS Plastics works in plastics recovery, recycled polymers, or material transformation that supports more circular manufacturing."
+  },
+  "elastochem": {
+    "company_name": "ElastoChem",
+    "member_category": "businesses",
+    "description": "ElastoChem is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "electronics_recycling_services": {
+    "company_name": "Electronics Recycling Services",
+    "member_category": "businesses",
+    "description": "Electronics Recycling Services focuses on collection, processing, or recovery systems that keep materials in circulation."
+  },
+  "eligant_group_inc": {
+    "company_name": "Eligant Group Inc",
+    "member_category": "businesses",
+    "description": "Eligant Group Inc acts as an operational or strategic partner helping organizations improve waste, materials, or procurement practices."
+  },
+  "ellen_macarthur_foundation": {
+    "company_name": "Ellen MacArthur Foundation",
+    "member_category": "associations_non_profits",
+    "description": "Ellen MacArthur Foundation is a leading circular-economy foundation known for advancing frameworks, research, and business adoption."
+  },
+  "emterra_group": {
+    "company_name": "Emterra Group",
+    "member_category": "businesses",
+    "description": "Emterra Group acts as an operational or strategic partner helping organizations improve waste, materials, or procurement practices."
+  },
+  "envirocentre": {
+    "company_name": "EnviroCentre",
+    "member_category": "associations_non_profits",
+    "description": "EnviroCentre delivers community sustainability programs that connect environmental action with practical local change."
+  },
+  "envirotech": {
+    "company_name": "Envirotech",
+    "member_category": "businesses",
+    "description": "Envirotech operates in environmental services or environmental solutions connected to diversion and resource efficiency."
+  },
+  "equiterre": {
+    "company_name": "Equiterre",
+    "member_category": "associations_non_profits",
+    "description": "Equiterre is an environmental organization that promotes practical low-impact choices and broader systemic sustainability change."
+  },
+  "etch_sourcing": {
+    "company_name": "ETCH Sourcing",
+    "member_category": "businesses",
+    "description": "ETCH Sourcing supports sourcing and procurement decisions that can influence material efficiency and reuse."
+  },
+  "ets": {
+    "company_name": "ETS",
+    "member_category": "public_institutions",
+    "description": "ETS is a technical university that contributes applied research, engineering talent, and campus-scale operational learning relevant to circular systems."
+  },
+  "ewswa": {
+    "company_name": "EWSWA",
+    "member_category": "municipalities_government",
+    "description": "EWSWA is a regional waste authority focused on shared solid-waste services, diversion systems, and resource-management infrastructure."
+  },
+  "exhibition_place": {
+    "company_name": "Exhibition Place",
+    "member_category": "associations_non_profits",
+    "description": "Exhibition Place is a large public event campus where procurement, waste operations, and reuse systems matter at institutional scale."
+  },
+  "friendlier": {
+    "company_name": "Friendlier",
+    "member_category": "businesses",
+    "description": "Friendlier is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "fullstep_consulting": {
+    "company_name": "Fullstep Consulting",
+    "member_category": "businesses",
+    "description": "Fullstep Consulting provides advisory support that can help organizations redesign operations around circular goals."
+  },
+  "gananoque": {
+    "company_name": "Gananoque",
+    "member_category": "municipalities_government",
+    "description": "Gananoque is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "general_mills": {
+    "company_name": "General Mills",
+    "member_category": "businesses",
+    "description": "General Mills is a major consumer-goods company with strong relevance to packaging, supply chains, and materials stewardship."
+  },
+  "gfl": {
+    "company_name": "GFL",
+    "member_category": "businesses",
+    "description": "GFL is involved in large-scale waste, environmental, or recovery operations where diversion and materials management are central."
+  },
+  "gfm": {
+    "company_name": "GFM",
+    "member_category": "businesses",
+    "description": "GFM is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "global_electronics_council": {
+    "company_name": "Global Electronics Council",
+    "member_category": "associations_non_profits",
+    "description": "Global Electronics Council supports more sustainable electronics through standards, procurement tools, and product-performance leadership."
+  },
+  "goodwill_industries": {
+    "company_name": "Goodwill Industries",
+    "member_category": "associations_non_profits",
+    "description": "Goodwill Industries extends product life through donation and resale while pairing reuse with employment and community services."
+  },
+  "guelph": {
+    "company_name": "Guelph",
+    "member_category": "municipalities_government",
+    "description": "Guelph is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "haldimand": {
+    "company_name": "Haldimand",
+    "member_category": "municipalities_government",
+    "description": "Haldimand is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "halton": {
+    "company_name": "Halton",
+    "member_category": "municipalities_government",
+    "description": "Halton is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "hp": {
+    "company_name": "HP",
+    "member_category": "businesses",
+    "description": "HP is a major technology company with strong relevance to electronics stewardship, procurement, and product life extension."
+  },
+  "hsr_zero_waste": {
+    "company_name": "HSR Zero Waste",
+    "member_category": "businesses",
+    "description": "HSR Zero Waste works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "innovate_waste_solutions_corp": {
+    "company_name": "Innovate Waste Solutions Corp",
+    "member_category": "businesses",
+    "description": "Innovate Waste Solutions Corp works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "kaltire": {
+    "company_name": "KalTire",
+    "member_category": "businesses",
+    "description": "KalTire is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "kelleher_environmental": {
+    "company_name": "Kelleher Environmental",
+    "member_category": "businesses",
+    "description": "Kelleher Environmental operates in environmental services or environmental solutions connected to diversion and resource efficiency."
+  },
+  "keurig_drpepper_canada": {
+    "company_name": "Keurig DrPepper Canada",
+    "member_category": "businesses",
+    "description": "Keurig DrPepper Canada is a beverage company whose packaging, containers, and recovery systems are directly tied to circular performance."
+  },
+  "kingston": {
+    "company_name": "Kingston",
+    "member_category": "municipalities_government",
+    "description": "Kingston is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "lark_scientific": {
+    "company_name": "Lark Scientific",
+    "member_category": "businesses",
+    "description": "Lark Scientific contributes technology, product, or systems innovation that can help organizations improve circular performance."
+  },
+  "leap_green_polymers": {
+    "company_name": "Leap Green Polymers",
+    "member_category": "businesses",
+    "description": "Leap Green Polymers focuses on polymer or materials innovation aimed at improving reuse, recycled content, or circular product design."
+  },
+  "lend_it_ca": {
+    "company_name": "LEND-IT.ca",
+    "member_category": "businesses",
+    "description": "LEND-IT.ca operates in logistics, packaging movement, or shared-use systems where return flows and material efficiency matter."
+  },
+  "loblaw_companies_limited": {
+    "company_name": "Loblaw Companies Limited",
+    "member_category": "businesses",
+    "description": "Loblaw Companies Limited is a major food and consumer-goods retailer whose procurement and packaging choices shape large material flows."
+  },
+  "london": {
+    "company_name": "London",
+    "member_category": "municipalities_government",
+    "description": "London is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "market_waste_solutions": {
+    "company_name": "Market Waste Solutions",
+    "member_category": "businesses",
+    "description": "Market Waste Solutions works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "mcc": {
+    "company_name": "MCC",
+    "member_category": "businesses",
+    "description": "MCC is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "mcdonalds_canada": {
+    "company_name": "McDonalds Canada",
+    "member_category": "businesses",
+    "description": "McDonalds Canada is a large food-service brand where packaging design, reuse models, and waste reduction are central operational issues."
+  },
+  "metro": {
+    "company_name": "Metro",
+    "member_category": "businesses",
+    "description": "Metro is a large grocery operator whose packaging, food systems, and store operations matter to circular outcomes."
+  },
+  "miller_waste_systems": {
+    "company_name": "Miller Waste Systems",
+    "member_category": "businesses",
+    "description": "Miller Waste Systems works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "mj_waste_solutions": {
+    "company_name": "MJ Waste Solutions",
+    "member_category": "businesses",
+    "description": "MJ Waste Solutions works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "motioneer": {
+    "company_name": "Motioneer",
+    "member_category": "businesses",
+    "description": "Motioneer contributes technology, product, or systems innovation that can help organizations improve circular performance."
+  },
+  "nespresso_canada": {
+    "company_name": "Nespresso Canada",
+    "member_category": "businesses",
+    "description": "Nespresso Canada is a consumer coffee brand with clear relevance to packaging, take-back systems, and product stewardship."
+  },
+  "netherlands_government": {
+    "company_name": "Netherlands Government",
+    "member_category": "municipalities_government",
+    "description": "Netherlands Government represents a national public-sector participant with policy experience relevant to circular-economy strategy and systems change."
+  },
+  "newmarket": {
+    "company_name": "Newmarket",
+    "member_category": "municipalities_government",
+    "description": "Newmarket is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "niagara": {
+    "company_name": "Niagara",
+    "member_category": "municipalities_government",
+    "description": "Niagara is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "norfolk": {
+    "company_name": "Norfolk",
+    "member_category": "municipalities_government",
+    "description": "Norfolk is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "orillia": {
+    "company_name": "Orillia",
+    "member_category": "municipalities_government",
+    "description": "Orillia is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "ottawa": {
+    "company_name": "Ottawa",
+    "member_category": "municipalities_government",
+    "description": "Ottawa is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "ottawa_university": {
+    "company_name": "Ottawa University",
+    "member_category": "public_institutions",
+    "description": "Ottawa University is a major academic institution that can contribute research, procurement leadership, and campus sustainability practice."
+  },
+  "peel": {
+    "company_name": "Peel",
+    "member_category": "municipalities_government",
+    "description": "Peel is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "pickering": {
+    "company_name": "Pickering",
+    "member_category": "municipalities_government",
+    "description": "Pickering is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "plaex": {
+    "company_name": "PLAEX",
+    "member_category": "businesses",
+    "description": "PLAEX is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "policy_integrity_consulting": {
+    "company_name": "Policy Integrity Consulting",
+    "member_category": "businesses",
+    "description": "Policy Integrity Consulting provides advisory support that can help organizations redesign operations around circular goals."
+  },
+  "post_plastics": {
+    "company_name": "Post Plastics",
+    "member_category": "businesses",
+    "description": "Post Plastics works in plastics recovery, recycled polymers, or material transformation that supports more circular manufacturing."
+  },
+  "pragma_tech_waste_solutions": {
+    "company_name": "Pragma Tech Waste Solutions",
+    "member_category": "businesses",
+    "description": "Pragma Tech Waste Solutions works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "provectus": {
+    "company_name": "Provectus",
+    "member_category": "businesses",
+    "description": "Provectus contributes technology, product, or systems innovation that can help organizations improve circular performance."
+  },
+  "purolator": {
+    "company_name": "Purolator",
+    "member_category": "businesses",
+    "description": "Purolator is a large logistics provider whose packaging, delivery, and reverse-logistics systems connect directly to circularity."
+  },
+  "quantum_lifecycle": {
+    "company_name": "Quantum Lifecycle",
+    "member_category": "businesses",
+    "description": "Quantum Lifecycle is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "queens_university": {
+    "company_name": "Queen's University",
+    "member_category": "public_institutions",
+    "description": "Queen's University contributes research capacity, institutional operations, and student engagement relevant to circular-economy initiatives."
+  },
+  "raw_materials_company_inc": {
+    "company_name": "Raw Materials Company Inc",
+    "member_category": "businesses",
+    "description": "Raw Materials Company Inc works with materials recovery, processing, or feedstocks that help keep resources in use longer."
+  },
+  "recanex": {
+    "company_name": "Recanex",
+    "member_category": "businesses",
+    "description": "Recanex is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "reclay_stewardedge": {
+    "company_name": "Reclay StewardEdge",
+    "member_category": "businesses",
+    "description": "Reclay StewardEdge is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "refresco": {
+    "company_name": "Refresco",
+    "member_category": "businesses",
+    "description": "Refresco is a beverage manufacturing company with strong relevance to packaging, containers, and material recovery systems."
+  },
+  "remm_group": {
+    "company_name": "ReMM Group",
+    "member_category": "businesses",
+    "description": "ReMM Group acts as an operational or strategic partner helping organizations improve waste, materials, or procurement practices."
+  },
+  "resource_recycling": {
+    "company_name": "Resource Recycling",
+    "member_category": "businesses",
+    "description": "Resource Recycling focuses on collection, processing, or recovery systems that keep materials in circulation."
+  },
+  "reusables": {
+    "company_name": "Reusables",
+    "member_category": "businesses",
+    "description": "Reusables is tied to reusable systems and business models that reduce single-use waste."
+  },
+  "revolusation": {
+    "company_name": "Revolusation",
+    "member_category": "businesses",
+    "description": "Revolusation is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "rfcl_innovations_inc": {
+    "company_name": "RFCL Innovations Inc",
+    "member_category": "businesses",
+    "description": "RFCL Innovations Inc contributes technology, product, or systems innovation that can help organizations improve circular performance."
+  },
+  "richmond": {
+    "company_name": "Richmond",
+    "member_category": "municipalities_government",
+    "description": "Richmond is a municipal government where local procurement, waste services, and public operations create direct opportunities for circular implementation."
+  },
+  "riocan_reit": {
+    "company_name": "RioCan REIT",
+    "member_category": "businesses",
+    "description": "RioCan REIT is a large real-estate operator where buildings, tenant services, and property operations shape resource use."
+  },
+  "rlg": {
+    "company_name": "RLG",
+    "member_category": "businesses",
+    "description": "RLG is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "robust_recycling": {
+    "company_name": "Robust Recycling",
+    "member_category": "businesses",
+    "description": "Robust Recycling focuses on collection, processing, or recovery systems that keep materials in circulation."
+  },
+  "second_wind_recycling": {
+    "company_name": "Second Wind Recycling",
+    "member_category": "businesses",
+    "description": "Second Wind Recycling focuses on collection, processing, or recovery systems that keep materials in circulation."
+  },
+  "smart_recycle_consulting": {
+    "company_name": "Smart Recycle Consulting",
+    "member_category": "businesses",
+    "description": "Smart Recycle Consulting focuses on collection, processing, or recovery systems that keep materials in circulation."
+  },
+  "sobeys": {
+    "company_name": "Sobeys",
+    "member_category": "businesses",
+    "description": "Sobeys is a major grocery retailer with direct influence over packaging, food waste, and supply-chain decisions."
+  },
+  "strathcona": {
+    "company_name": "Strathcona",
+    "member_category": "municipalities_government",
+    "description": "Strathcona is a regional or county-level government participant involved in public services, infrastructure, and material-management decisions at scale."
+  },
+  "suppli": {
+    "company_name": "Suppli",
+    "member_category": "businesses",
+    "description": "Suppli contributes technology, product, or systems innovation that can help organizations improve circular performance."
+  },
+  "sussex": {
+    "company_name": "Sussex",
+    "member_category": "businesses",
+    "description": "Sussex is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "telus": {
+    "company_name": "Telus",
+    "member_category": "businesses",
+    "description": "Telus is a large telecommunications company whose devices, infrastructure, and procurement choices influence material use and recovery."
+  },
+  "the_beer_store": {
+    "company_name": "The Beer Store",
+    "member_category": "businesses",
+    "description": "The Beer Store is a beverage-retail and container-return operator closely linked to reuse, deposit systems, and packaging recovery."
+  },
+  "the_box_of_life": {
+    "company_name": "The Box of Life",
+    "member_category": "businesses",
+    "description": "The Box of Life is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "the_charity_hub": {
+    "company_name": "The Charity Hub",
+    "member_category": "businesses",
+    "description": "The Charity Hub supports collaboration or service delivery that helps connect organizations to circular opportunities."
+  },
+  "tomra": {
+    "company_name": "Tomra",
+    "member_category": "businesses",
+    "description": "Tomra supports collection and return systems that improve recovery and circular material flows."
+  },
+  "toronto_hydro": {
+    "company_name": "Toronto Hydro",
+    "member_category": "businesses",
+    "description": "Toronto Hydro is a major utility whose infrastructure, procurement, and operational materials can benefit from circular strategies."
+  },
+  "toronto_university": {
+    "company_name": "Toronto University",
+    "member_category": "public_institutions",
+    "description": "Toronto University is a large academic institution where research, procurement, and campus operations can support circular innovation."
+  },
+  "tricentris": {
+    "company_name": "Tricentris",
+    "member_category": "businesses",
+    "description": "Tricentris is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "united_health_network": {
+    "company_name": "United Health Network",
+    "member_category": "public_institutions",
+    "description": "United Health Network is a large health-system participant where procurement, packaging, and waste reduction matter across complex operations."
+  },
+  "vcycene_inc": {
+    "company_name": "VCycene Inc",
+    "member_category": "businesses",
+    "description": "VCycene Inc is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "viking_recycling": {
+    "company_name": "Viking Recycling",
+    "member_category": "businesses",
+    "description": "Viking Recycling focuses on collection, processing, or recovery systems that keep materials in circulation."
+  },
+  "vio_sustainability": {
+    "company_name": "Vio Sustainability",
+    "member_category": "businesses",
+    "description": "Vio Sustainability is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "viridis_environmental_inc": {
+    "company_name": "Viridis Environmental Inc",
+    "member_category": "businesses",
+    "description": "Viridis Environmental Inc operates in environmental services or environmental solutions connected to diversion and resource efficiency."
+  },
+  "walker": {
+    "company_name": "Walker",
+    "member_category": "businesses",
+    "description": "Walker is involved in large-scale waste, environmental, or recovery operations where diversion and materials management are central."
+  },
+  "walker_environmental": {
+    "company_name": "Walker Environmental",
+    "member_category": "businesses",
+    "description": "Walker Environmental operates in environmental services or environmental solutions connected to diversion and resource efficiency."
+  },
+  "walmart": {
+    "company_name": "Walmart",
+    "member_category": "businesses",
+    "description": "Walmart is a major retailer whose packaging, logistics, and supplier choices can influence circularity at scale."
+  },
+  "waste_reduction_group_inc": {
+    "company_name": "Waste Reduction Group Inc",
+    "member_category": "businesses",
+    "description": "Waste Reduction Group Inc works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "wasteco": {
+    "company_name": "WasteCo",
+    "member_category": "businesses",
+    "description": "WasteCo works on waste reduction, diversion, or material recovery as a practical part of circular operations."
+  },
+  "wilfrid_laurier_university": {
+    "company_name": "Wilfrid Laurier University",
+    "member_category": "public_institutions",
+    "description": "Wilfrid Laurier University can contribute research, education, and institutional operations that support more circular practices."
+  },
+  "working_knowledge_inc": {
+    "company_name": "Working Knowledge Inc",
+    "member_category": "businesses",
+    "description": "Working Knowledge Inc is a business member whose operations connect to packaging, materials, procurement, or service models relevant to the circular economy."
+  },
+  "york_university": {
+    "company_name": "York University",
+    "member_category": "public_institutions",
+    "description": "York University brings research, teaching, and large-scale campus operations into the broader circular-economy conversation."
+  }
+}

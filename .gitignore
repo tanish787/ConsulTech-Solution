@@ -47,6 +47,7 @@ config/secrets/
 *.db
 *.sqlite
 *.sqlite3
+service-account.json
 
 # OS & Temporary
 .DS_Store
