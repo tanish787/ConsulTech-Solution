@@ -205,8 +205,7 @@ const LoginPage: React.FC = () => {
                 <label className="block text-gray-700 font-semibold mb-2">
                   Industry
                 </label>
-                <input
-                  type="text"
+                <select
                   value={registerData.industry}
                   onChange={(e) =>
                     setRegisterData({
@@ -216,7 +215,21 @@ const LoginPage: React.FC = () => {
                   }
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600"
                   required
-                />
+                >
+                  <option value="">Select an industry</option>
+                  <option value="Business Services">Business Services</option>
+                  <option value="Consulting / Engineering">Consulting / Engineering</option>
+                  <option value="Education">Education</option>
+                  <option value="Government">Government</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Logistics">Logistics</option>
+                  <option value="Manufacturing">Manufacturing</option>
+                  <option value="Non-Profit / Association">Non-Profit / Association</option>
+                  <option value="Packaging / Reuse">Packaging / Reuse</option>
+                  <option value="Retail">Retail</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Waste Management">Waste Management</option>
+                </select>
               </div>
 
               <div className="mb-4">

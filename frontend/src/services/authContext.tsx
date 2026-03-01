@@ -125,6 +125,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       await setDoc(doc(newMembersRef, uid), loginData);
 
+      // Create company profile in circular_members collection
+      const circularMembersRef = collection(db, 'circular_members');
+      const companyProfile = {
+        company_name: companyName,
+        description,
+        industry,
+        size,
+        website,
+        membership_start_date: new Date().toISOString(),
+        membership_duration_months: 0,
+        computed_loyalty_level: 'Bronze',
+        is_approved: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+      
+      await setDoc(doc(circularMembersRef, uid), companyProfile);
+
       // Set user state
       const idToken = await result.user.getIdToken();
       setToken(idToken);
