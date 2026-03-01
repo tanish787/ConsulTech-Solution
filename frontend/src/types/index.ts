@@ -23,9 +23,11 @@ export interface Company {
   months_until_next_level?: number | null;
   /** Optional URL for company logo image */
   logo_url?: string | null;
+  /** Listings created by this company */
+  listings?: Listing[];
 }
 
-export type LoyaltyLevel = 'Explorer' | 'Participant' | 'Contributor' | 'Champion';
+export type LoyaltyLevel = 'Bronze' | 'Silver' | 'Gold' | 'Platinum';
 
 export interface Listing {
   id: string;

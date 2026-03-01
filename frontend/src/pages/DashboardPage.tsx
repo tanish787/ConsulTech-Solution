@@ -71,24 +71,24 @@ const DashboardPage: React.FC = () => {
     );
 
   const tierInfo = {
-    Explorer: {
-      description: '0–3 months',
+    Bronze: {
+      description: 'Less than 3 months',
       privileges: ['View member network'],
     },
-    Participant: {
+    Silver: {
       description: '3–12 months',
       privileges: ['View member network', 'Attend events'],
     },
-    Contributor: {
-      description: '1–3 years',
+    Gold: {
+      description: '12–24 months',
       privileges: [
         'View member network',
         'Attend events',
         'Create and edit listings',
       ],
     },
-    Champion: {
-      description: '3+ years',
+    Platinum: {
+      description: '24+ months',
       privileges: [
         'View member network',
         'Attend events',
@@ -100,7 +100,7 @@ const DashboardPage: React.FC = () => {
   };
 
   const currentTier =
-    tierInfo[company.computed_loyalty_level || 'Explorer'] || tierInfo.Explorer;
+    tierInfo[company.computed_loyalty_level || 'Bronze'] || tierInfo.Bronze;
   const nextLevel = company.next_level;
   const monthsUntilNext = company.months_until_next_level;
 
@@ -135,7 +135,7 @@ const DashboardPage: React.FC = () => {
               </h2>
               <p className="text-gray-500 text-sm mt-1">Your organization</p>
             </div>
-            <LoyaltyBadge level={company.computed_loyalty_level || 'Explorer'} />
+            <LoyaltyBadge level={company.computed_loyalty_level || 'Bronze'} />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-gray-200 pt-6">

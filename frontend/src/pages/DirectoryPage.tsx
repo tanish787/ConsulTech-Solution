@@ -23,13 +23,19 @@ const DirectoryPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [companiesData, filtersData] = await Promise.all([
-          apiService.getAllCompanies(sortBy, selectedIndustry),
-          apiService.getFilters(),
-        ]);
+        const companiesData = await apiService.getAllCompanies(sortBy, selectedIndustry);
         setCompanies(companiesData);
-        setFilters(filtersData);
+        
+        // Fetch filters
+        try {
+          const filtersData = await apiService.getFilters();
+          setFilters(filtersData);
+        } catch (err) {
+          console.error('Error loading filters:', err);
+          // Still continue even if filters fail
+        }
       } catch (err: any) {
+        console.error('Error loading directory:', err);
         setError('Failed to load directory');
       } finally {
         setLoading(false);
@@ -45,13 +51,16 @@ const DirectoryPage: React.FC = () => {
   );
 
   const loyaltyStats = {
-    Champions: companies.filter((c) => c.computed_loyalty_level === 'Champion').length,
-    Contributors: companies.filter((c) => c.computed_loyalty_level === 'Contributor').length,
-    Participants: companies.filter((c) => c.computed_loyalty_level === 'Participant').length,
+    Platinum: companies.filter((c) => c.computed_loyalty_level === 'Platinum').length,
+    Gold: companies.filter((c) => c.computed_loyalty_level === 'Gold').length,
+    Silver: companies.filter((c) => c.computed_loyalty_level === 'Silver').length,
+    Bronze: companies.filter((c) => c.computed_loyalty_level === 'Bronze').length,
   };
 
   const industryStats = companies.reduce((acc: Record<string, number>, c) => {
-    acc[c.industry] = (acc[c.industry] || 0) + 1;
+    if (c.industry) {
+      acc[c.industry] = (acc[c.industry] || 0) + 1;
+    }
     return acc;
   }, {});
 
@@ -86,8 +95,8 @@ const DirectoryPage: React.FC = () => {
             <p className="text-3xl font-light text-gray-900 mt-2">{companies.length}</p>
           </div>
           <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <p className="text-gray-500 text-sm font-medium">Champion Tier</p>
-            <p className="text-3xl font-light text-emerald-600 mt-2">{loyaltyStats.Champions}</p>
+            <p className="text-gray-500 text-sm font-medium">Platinum Tier</p>
+            <p className="text-3xl font-light text-blue-600 mt-2">{loyaltyStats.Platinum}</p>
           </div>
           <div className="bg-white rounded-xl border border-gray-200 p-6">
             <p className="text-gray-500 text-sm font-medium">Industries</p>
@@ -215,24 +224,28 @@ const DirectoryPage: React.FC = () => {
                         {company.company_name}
                       </h3>
                       <div className="mt-2">
-                        <LoyaltyBadge level={company.computed_loyalty_level || 'Explorer'} />
+                        <LoyaltyBadge level={company.computed_loyalty_level || 'Bronze'} />
                       </div>
                     </div>
                   </div>
 
                   <p className="text-gray-600 mb-4 text-sm line-clamp-2 leading-relaxed h-10">
-                    {company.description}
+                    {company.description || 'No description available'}
                   </p>
 
                   <div className="space-y-2.5 text-sm border-t border-gray-100 pt-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Industry</span>
-                      <span className="text-gray-900 font-medium text-right">{company.industry}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Tenure</span>
-                      <span className="text-gray-900 font-medium">{company.membership_duration_months}mo</span>
-                    </div>
+                    {company.industry && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Industry</span>
+                        <span className="text-gray-900 font-medium text-right">{company.industry}</span>
+                      </div>
+                    )}
+                    {company.membership_duration_months !== null && company.membership_duration_months !== undefined && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Tenure</span>
+                        <span className="text-gray-900 font-medium">{company.membership_duration_months}mo</span>
+                      </div>
+                    )}
                   </div>
 
                   <button className="w-full mt-4 px-4 py-2 text-sm font-medium text-emerald-600 border border-emerald-300 rounded-lg hover:bg-emerald-50 transition-colors">
@@ -263,31 +276,39 @@ const DirectoryPage: React.FC = () => {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-lg font-medium text-gray-900">{company.company_name}</h3>
-                        <LoyaltyBadge level={company.computed_loyalty_level || 'Explorer'} />
+                        <LoyaltyBadge level={company.computed_loyalty_level || 'Bronze'} />
                       </div>
-                    <p className="text-gray-600 text-sm mb-3">{company.description}</p>
+                    <p className="text-gray-600 text-sm mb-3">{company.description || 'No description available'}</p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                      <div>
-                        <span className="text-gray-500">Industry:</span>
-                        <span className="ml-2 font-medium text-gray-900">{company.industry}</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-500">Size:</span>
-                        <span className="ml-2 font-medium text-gray-900 capitalize">{company.size}</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-500">Member for:</span>
-                        <span className="ml-2 font-medium text-gray-900">{company.membership_duration_months} months</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-500">Since:</span>
-                        <span className="ml-2 font-medium text-gray-900">
-                          {new Date(company.membership_start_date).toLocaleDateString('en-US', {
-                            month: 'short',
-                            year: '2-digit',
-                          })}
-                        </span>
-                      </div>
+                      {company.industry && (
+                        <div>
+                          <span className="text-gray-500">Industry:</span>
+                          <span className="ml-2 font-medium text-gray-900">{company.industry}</span>
+                        </div>
+                      )}
+                      {company.size && (
+                        <div>
+                          <span className="text-gray-500">Size:</span>
+                          <span className="ml-2 font-medium text-gray-900 capitalize">{company.size}</span>
+                        </div>
+                      )}
+                      {company.membership_duration_months !== null && company.membership_duration_months !== undefined && (
+                        <div>
+                          <span className="text-gray-500">Member for:</span>
+                          <span className="ml-2 font-medium text-gray-900">{company.membership_duration_months} months</span>
+                        </div>
+                      )}
+                      {company.membership_start_date && (
+                        <div>
+                          <span className="text-gray-500">Since:</span>
+                          <span className="ml-2 font-medium text-gray-900">
+                            {new Date(company.membership_start_date).toLocaleDateString('en-US', {
+                              month: 'short',
+                              year: '2-digit',
+                            })}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     </div>
                   </div>
@@ -330,29 +351,37 @@ const DirectoryPage: React.FC = () => {
 
               <div className="p-6">
                 <div className="mb-6">
-                  <LoyaltyBadge level={selectedCompany.computed_loyalty_level || 'Explorer'} className="mb-4 inline-block" />
+                  <LoyaltyBadge level={selectedCompany.computed_loyalty_level || 'Bronze'} className="mb-4 inline-block" />
                   <p className="text-gray-600 leading-relaxed">{selectedCompany.description}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 py-6 border-y border-gray-200">
-                  <div>
-                    <p className="text-gray-500 text-sm font-medium mb-1">Industry</p>
-                    <p className="text-lg font-medium text-gray-900">{selectedCompany.industry}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 text-sm font-medium mb-1">Organization Size</p>
-                    <p className="text-lg font-medium text-gray-900 capitalize">{selectedCompany.size}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 text-sm font-medium mb-1">Member Since</p>
-                    <p className="text-lg font-medium text-gray-900">
-                      {new Date(selectedCompany.membership_start_date).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 text-sm font-medium mb-1">Membership Duration</p>
-                    <p className="text-lg font-medium text-gray-900">{selectedCompany.membership_duration_months} months</p>
-                  </div>
+                  {selectedCompany.industry && (
+                    <div>
+                      <p className="text-gray-500 text-sm font-medium mb-1">Industry</p>
+                      <p className="text-lg font-medium text-gray-900">{selectedCompany.industry}</p>
+                    </div>
+                  )}
+                  {selectedCompany.size && (
+                    <div>
+                      <p className="text-gray-500 text-sm font-medium mb-1">Organization Size</p>
+                      <p className="text-lg font-medium text-gray-900 capitalize">{selectedCompany.size}</p>
+                    </div>
+                  )}
+                  {selectedCompany.membership_start_date && (
+                    <div>
+                      <p className="text-gray-500 text-sm font-medium mb-1">Member Since</p>
+                      <p className="text-lg font-medium text-gray-900">
+                        {new Date(selectedCompany.membership_start_date).toLocaleDateString()}
+                      </p>
+                    </div>
+                  )}
+                  {selectedCompany.membership_duration_months !== null && selectedCompany.membership_duration_months !== undefined && (
+                    <div>
+                      <p className="text-gray-500 text-sm font-medium mb-1">Membership Duration</p>
+                      <p className="text-lg font-medium text-gray-900">{selectedCompany.membership_duration_months} months</p>
+                    </div>
+                  )}
                 </div>
 
                 {selectedCompany.website && (

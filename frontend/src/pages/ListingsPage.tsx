@@ -74,9 +74,7 @@ const ListingsPage: React.FC = () => {
 
   const canCreateListings =
     userCompany &&
-    ['Contributor', 'Champion'].includes(
-      userCompany.computed_loyalty_level || ''
-    );
+    (userCompany.membership_duration_months || 0) >= 3;
 
   if (loading)
     return (
@@ -123,10 +121,9 @@ const ListingsPage: React.FC = () => {
         )}
 
         {!canCreateListings && userCompany && (
-          <div className="mb-6 p-4 bg-blue-100 text-blue-700 rounded">
-            <p>
-              Unlock the ability to create listings by advancing to{' '}
-              <strong>Contributor</strong> tier (1+ year membership)
+          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+            <p className="text-amber-800 text-sm">
+              <strong>Requirement:</strong> You must have at least 3 months of membership to create listings. You currently have {userCompany.membership_duration_months || 0} months.
             </p>
           </div>
         )}

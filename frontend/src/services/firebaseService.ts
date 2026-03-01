@@ -2,7 +2,6 @@ import {
   collection,
   query,
   where,
-  orderBy,
   getDocs,
   getDoc,
   addDoc,
@@ -11,38 +10,98 @@ import {
   doc,
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
-import { Company, Listing, Filters } from '../types';
+import { Company, Listing, Filters, LoyaltyLevel } from '../types';
 
-// Companies (stored in circular-members collection)
+// Utility function to calculate loyalty level based on membership duration
+export const calculateLoyaltyLevel = (membershipDurationMonths: number | null | undefined): LoyaltyLevel => {
+  if (membershipDurationMonths == null) return 'Bronze';
+  if (membershipDurationMonths < 3) return 'Bronze';
+  if (membershipDurationMonths < 12) return 'Silver';
+  if (membershipDurationMonths < 24) return 'Gold';
+  return 'Platinum';
+};
+
+// Companies (stored in circular_members collection)
 export const getAllCompanies = async (
   sortBy: string = 'membership_duration_months',
   industry?: string
 ): Promise<Company[]> => {
   try {
-    const membersRef = collection(db, 'circular-members');
-    let q = query(membersRef, orderBy(sortBy, 'desc'));
-
-    if (industry) {
-      q = query(membersRef, where('industry', '==', industry), orderBy(sortBy, 'desc'));
+    console.log('🔍 Fetching companies from circular_members collection...');
+    const membersRef = collection(db, 'circular_members');
+    
+    // Build query without orderBy to avoid issues with null/missing fields
+    let q;
+    if (industry && industry !== '') {
+      console.log(`🔍 Filtering by industry: ${industry}`);
+      q = query(membersRef, where('industry', '==', industry));
+    } else {
+      console.log('🔍 No industry filter');
+      q = query(membersRef);
     }
 
     const snapshot = await getDocs(q);
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as Company[];
+    console.log(`✅ Found ${snapshot.size} companies`);
+    
+    let companies = snapshot.docs.map((doc) => {
+      const data = doc.data() as any;
+      const company = {
+        id: doc.id,
+        ...data,
+      } as Company;
+      
+      // Calculate computed_loyalty_level based on membership_duration_months
+      if (!company.computed_loyalty_level) {
+        company.computed_loyalty_level = calculateLoyaltyLevel(company.membership_duration_months);
+      }
+      
+      return company;
+    });
+
+    console.log('📋 Companies before sorting:', companies.map(c => ({ name: c.company_name, id: c.id })));
+
+    // Sort in JavaScript to handle null values gracefully
+    companies.sort((a, b) => {
+      let aVal = a[sortBy as keyof Company];
+      let bVal = b[sortBy as keyof Company];
+
+      // Handle null/undefined values
+      if (aVal == null && bVal == null) return 0;
+      if (aVal == null) return 1;
+      if (bVal == null) return -1;
+
+      // For strings, compare case-insensitively
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        return bVal.localeCompare(aVal);
+      }
+
+      // For numbers, sort descending
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return bVal - aVal;
+      }
+
+      return 0;
+    });
+
+    console.log('✅ Companies sorted successfully:', companies.length);
+    return companies;
   } catch (error) {
-    console.error('Error fetching companies:', error);
+    console.error('❌ Error fetching companies:', error);
     throw error;
   }
 };
 
 export const getCompanyById = async (id: string): Promise<Company | null> => {
   try {
-    const docRef = doc(db, 'circular-members', id);
+    const docRef = doc(db, 'circular_members', id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() } as Company;
+      const company = { id: docSnap.id, ...docSnap.data() } as Company;
+      // Calculate computed_loyalty_level if not set
+      if (!company.computed_loyalty_level) {
+        company.computed_loyalty_level = calculateLoyaltyLevel(company.membership_duration_months);
+      }
+      return company;
     }
     return null;
   } catch (error) {
@@ -53,7 +112,7 @@ export const getCompanyById = async (id: string): Promise<Company | null> => {
 
 export const createCompany = async (data: Omit<Company, 'id'>): Promise<string> => {
   try {
-    const membersRef = collection(db, 'circular-members');
+    const membersRef = collection(db, 'circular_members');
     const docRef = await addDoc(membersRef, {
       ...data,
       created_at: new Date().toISOString(),
@@ -68,7 +127,7 @@ export const createCompany = async (data: Omit<Company, 'id'>): Promise<string> 
 
 export const updateCompany = async (id: string, updates: Partial<Company>): Promise<void> => {
   try {
-    const docRef = doc(db, 'circular-members', id);
+    const docRef = doc(db, 'circular_members', id);
     await updateDoc(docRef, {
       ...updates,
       updated_at: new Date().toISOString(),
@@ -80,15 +139,71 @@ export const updateCompany = async (id: string, updates: Partial<Company>): Prom
 };
 
 // Listings
+export const getAllListings = async (): Promise<Listing[]> => {
+  try {
+    const listingsRef = collection(db, 'listings');
+    const snapshot = await getDocs(listingsRef);
+    
+    // Enrich listings with company information
+    const enrichedListings = await Promise.all(
+      snapshot.docs.map(async (doc) => {
+        const listing = { id: doc.id, ...doc.data() } as Listing;
+        
+        // Fetch company info to get name and loyalty level
+        if (listing.company_id) {
+          try {
+            const company = await getCompanyById(listing.company_id);
+            if (company) {
+              listing.company_name = company.company_name;
+              listing.company_logo_url = company.logo_url;
+              listing.company_loyalty_level = company.computed_loyalty_level;
+            }
+          } catch (error) {
+            console.error(`Error fetching company ${listing.company_id}:`, error);
+          }
+        }
+        
+        return listing;
+      })
+    );
+    
+    return enrichedListings;
+  } catch (error) {
+    console.error('Error fetching all listings:', error);
+    throw error;
+  }
+};
+
 export const getListingsByCompany = async (companyId: string): Promise<Listing[]> => {
   try {
     const listingsRef = collection(db, 'listings');
     const q = query(listingsRef, where('company_id', '==', companyId));
     const snapshot = await getDocs(q);
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as Listing[];
+    
+    // Enrich listings with company information
+    const enrichedListings = await Promise.all(
+      snapshot.docs.map(async (doc) => {
+        const listing = { id: doc.id, ...doc.data() } as Listing;
+        
+        // Fetch company info to get name and loyalty level
+        if (listing.company_id) {
+          try {
+            const company = await getCompanyById(listing.company_id);
+            if (company) {
+              listing.company_name = company.company_name;
+              listing.company_logo_url = company.logo_url;
+              listing.company_loyalty_level = company.computed_loyalty_level;
+            }
+          } catch (error) {
+            console.error(`Error fetching company ${listing.company_id}:`, error);
+          }
+        }
+        
+        return listing;
+      })
+    );
+    
+    return enrichedListings;
   } catch (error) {
     console.error('Error fetching listings:', error);
     throw error;

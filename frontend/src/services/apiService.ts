@@ -33,7 +33,7 @@ class ApiService {
   }
 
   async getAllListings(category?: string): Promise<Listing[]> {
-    const listings = await firebaseService.getListingsByCompany('all');
+    const listings = await firebaseService.getAllListings();
     if (category && category !== 'all') {
       return listings.filter((l) => l.category === category);
     }

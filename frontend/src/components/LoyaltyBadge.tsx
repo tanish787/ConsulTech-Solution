@@ -8,17 +8,17 @@ interface LoyaltyBadgeProps {
 
 const LoyaltyBadge: React.FC<LoyaltyBadgeProps> = ({ level, className = '' }) => {
   const badgeStyles: Record<LoyaltyLevel, string> = {
-    Explorer: 'bg-gray-100 text-gray-700',
-    Participant: 'bg-emerald-100 text-emerald-700',
-    Contributor: 'bg-amber-100 text-amber-700',
-    Champion: 'bg-emerald-50 text-emerald-900 border border-emerald-200',
+    Bronze: 'bg-amber-50 text-amber-700 border border-amber-200',
+    Silver: 'bg-slate-100 text-slate-700 border border-slate-300',
+    Gold: 'bg-yellow-50 text-yellow-700 border border-yellow-300',
+    Platinum: 'bg-blue-50 text-blue-700 border border-blue-300',
   };
 
   const icons: Record<LoyaltyLevel, string> = {
-    Explorer: '○',
-    Participant: '◐',
-    Contributor: '◑',
-    Champion: '●',
+    Bronze: '◯',
+    Silver: '◐',
+    Gold: '◑',
+    Platinum: '●',
   };
 
   return (

@@ -33,7 +33,7 @@ const MOCK_RECOMMENDED_COMPANIES: RecommendedCompany[] = [
     company_name: 'EcoCycle Manufacturing',
     description: 'Sustainable manufacturing and recycling solutions',
     industry: 'Manufacturing',
-    loyalty_level: 'Champion',
+    loyalty_level: 'Platinum',
     reason: 'Similar industry focus; strong circular economy track record',
   },
   {
@@ -41,7 +41,7 @@ const MOCK_RECOMMENDED_COMPANIES: RecommendedCompany[] = [
     company_name: 'Eco Consulting Group',
     description: 'Strategy and innovation consulting for circular economy',
     industry: 'Consulting',
-    loyalty_level: 'Contributor',
+    loyalty_level: 'Gold',
     reason: 'Frequent collaborators with technology and manufacturing members',
   },
   {
@@ -49,7 +49,7 @@ const MOCK_RECOMMENDED_COMPANIES: RecommendedCompany[] = [
     company_name: 'ReWaste Solutions',
     description: 'Waste reduction and circular business models',
     industry: 'Waste Management',
-    loyalty_level: 'Participant',
+    loyalty_level: 'Silver',
     reason: 'Complementary services; active in CIC events',
   },
 ];
@@ -61,7 +61,7 @@ const MOCK_RECOMMENDED_LISTINGS: RecommendedListing[] = [
     description: 'Monthly workshops on implementing circular principles in your business',
     category: 'event',
     company_name: 'EcoCycle Manufacturing',
-    company_loyalty_level: 'Champion',
+    company_loyalty_level: 'Platinum',
     reason: 'Matches your industry; high engagement from similar members',
   },
   {
@@ -70,7 +70,7 @@ const MOCK_RECOMMENDED_LISTINGS: RecommendedListing[] = [
     description: 'Looking for technology partners to scale circular solutions',
     category: 'collaboration',
     company_name: 'Eco Consulting Group',
-    company_loyalty_level: 'Contributor',
+    company_loyalty_level: 'Gold',
     reason: 'Partnership goals align with your organization profile',
   },
   {
@@ -79,7 +79,7 @@ const MOCK_RECOMMENDED_LISTINGS: RecommendedListing[] = [
     description: 'Advanced machine learning solution for sorting waste streams',
     category: 'resource',
     company_name: 'GreenTech Solutions',
-    company_loyalty_level: 'Champion',
+    company_loyalty_level: 'Platinum',
     reason: 'Popular among technology and sustainability-focused members',
   },
 ];
