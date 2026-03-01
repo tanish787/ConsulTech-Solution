@@ -24,6 +24,7 @@ const LoginPage: React.FC = () => {
     size: 'small',
     website: '',
     description: '',
+    cic_join_date: '',
   });
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -54,7 +55,8 @@ const LoginPage: React.FC = () => {
         registerData.industry,
         registerData.size,
         registerData.website,
-        registerData.description
+        registerData.description,
+        registerData.cic_join_date
       );
       setError('');
       setIsRegister(false);
@@ -67,6 +69,7 @@ const LoginPage: React.FC = () => {
         size: 'small',
         website: '',
         description: '',
+        cic_join_date: '',
       });
       navigate('/dashboard');
     } catch (err: any) {
@@ -262,6 +265,25 @@ const LoginPage: React.FC = () => {
                   }
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600"
                 />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2">
+                  CIC Join Date
+                </label>
+                <input
+                  type="date"
+                  value={registerData.cic_join_date}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      cic_join_date: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600"
+                  required
+                />
+                <p className="text-gray-500 text-xs mt-1">The date your company joined Circular Innovation Community</p>
               </div>
 
               <div className="mb-6">

@@ -16,6 +16,10 @@ const ListingsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [selectedListingForContact, setSelectedListingForContact] = useState<Listing | null>(null);
+  const [contactEmail, setContactEmail] = useState<string | null>(null);
+  const [contactWebsite, setContactWebsite] = useState<string | null>(null);
+  const [loadingEmail, setLoadingEmail] = useState(false);
   const [newListing, setNewListing] = useState<{
     title: string;
     description: string;
@@ -69,6 +73,25 @@ const ListingsPage: React.FC = () => {
       setError(
         err.message || 'Failed to create listing'
       );
+    }
+  };
+
+  const handleLearnMore = async (listing: Listing) => {
+    setSelectedListingForContact(listing);
+    setLoadingEmail(true);
+    setContactEmail(null);
+    setContactWebsite(null);
+    
+    try {
+      const contactInfo = await apiService.getCompanyContactInfo(listing.company_name || '');
+      setContactEmail(contactInfo.email);
+      setContactWebsite(contactInfo.website);
+    } catch (err) {
+      console.error('Error fetching contact info:', err);
+      setContactEmail(null);
+      setContactWebsite(null);
+    } finally {
+      setLoadingEmail(false);
     }
   };
 
@@ -248,18 +271,44 @@ const ListingsPage: React.FC = () => {
 
                 <div className="border-t pt-4 flex items-center gap-3">
                   <CompanyLogo
-                    companyName={listing.company_name ?? 'Company'}
+                    companyName={listing.company_name ?? 'Unknown'}
                     logoUrl={listing.company_logo_url}
                     size="sm"
                   />
                   <div className="min-w-0 flex-1">
                     <p className="text-gray-700 font-semibold text-sm mb-0.5">
-                      {listing.company_name}
+                      {listing.company_name || 'Unknown Company'}
                     </p>
                     <p className="text-gray-500 text-xs">
-                      {new Date(listing.created_at).toLocaleDateString()}
+                      {listing.created_at 
+                        ? (() => {
+                            try {
+                              const date = new Date(listing.created_at);
+                              // Check if the date is valid
+                              if (isNaN(date.getTime())) {
+                                return 'Invalid date';
+                              }
+                              return date.toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'short', 
+                                day: 'numeric' 
+                              });
+                            } catch (e) {
+                              return 'Invalid date';
+                            }
+                          })()
+                        : 'Date unknown'}
                     </p>
                   </div>
+                </div>
+
+                <div className="border-t mt-4 pt-4">
+                  <button
+                    onClick={() => handleLearnMore(listing)}
+                    className="w-full px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition text-sm font-medium"
+                  >
+                    Learn More
+                  </button>
                 </div>
               </div>
             </div>
@@ -271,6 +320,112 @@ const ListingsPage: React.FC = () => {
             <p className="text-gray-600 text-lg">
               No listings found in this category.
             </p>
+          </div>
+        )}
+
+        {/* Contact Modal */}
+        {selectedListingForContact && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-md w-full p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    {selectedListingForContact.title}
+                  </h2>
+                  <p className="text-gray-600 text-sm mt-1">
+                    By {selectedListingForContact.company_name || 'Unknown Company'}
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedListingForContact(null);
+                    setContactEmail(null);
+                  }}
+                  className="text-gray-400 hover:text-gray-600 text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="border-t border-b py-4 my-4">
+                <p className="text-sm text-gray-600 mb-2">Contact Information:</p>
+                {loadingEmail ? (
+                  <p className="text-gray-600">Loading...</p>
+                ) : contactEmail ? (
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="text-emerald-600 font-semibold hover:underline break-all"
+                    >
+                      {contactEmail}
+                    </a>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(contactEmail || '');
+                        alert('Email copied to clipboard!');
+                      }}
+                      className="text-sm px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded"
+                      title="Copy to clipboard"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                ) : contactWebsite ? (
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={contactWebsite}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-600 font-semibold hover:underline break-all"
+                    >
+                      {contactWebsite}
+                    </a>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(contactWebsite || '');
+                        alert('Website copied to clipboard!');
+                      }}
+                      className="text-sm px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded"
+                      title="Copy to clipboard"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                ) : (
+                  <p className="text-gray-500">No contact information available</p>
+                )}
+              </div>
+
+              <div className="flex gap-3">
+                {contactEmail ? (
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition text-center font-medium"
+                  >
+                    Send Email
+                  </a>
+                ) : contactWebsite ? (
+                  <a
+                    href={contactWebsite}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition text-center font-medium"
+                  >
+                    Visit Website
+                  </a>
+                ) : null}
+                <button
+                  onClick={() => {
+                    setSelectedListingForContact(null);
+                    setContactEmail(null);
+                    setContactWebsite(null);
+                  }}
+                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition font-medium"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>

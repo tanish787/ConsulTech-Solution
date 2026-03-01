@@ -9,6 +9,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from './firebaseConfig';
 import { getEmailByCompanyName } from './firebaseService';
 import { User } from '../types';
+import { calculateLoyaltyLevel, calculateMonthsDifference } from './loyaltyCalculator';
 
 interface AuthContextType {
   user: User | null;
@@ -16,7 +17,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   loginByCompanyName: (companyName: string, password: string) => Promise<void>;
-  register: (email: string, password: string, companyName: string, industry?: string, size?: string, website?: string, description?: string) => Promise<void>;
+  register: (email: string, password: string, companyName: string, industry?: string, size?: string, website?: string, description?: string, cicJoinDate?: string) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
 }
@@ -104,7 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const register = async (email: string, password: string, companyName: string, industry: string = '', size: string = 'small', website: string = '', description: string = '') => {
+  const register = async (email: string, password: string, companyName: string, industry: string = '', size: string = 'small', website: string = '', description: string = '', cicJoinDate: string = '') => {
     try {
       console.log('📝 Starting registration for:', companyName);
       
@@ -112,6 +113,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const result = await createUserWithEmailAndPassword(auth, email, password);
       const uid = result.user.uid;
       console.log('✓ Firebase user created:', uid);
+
+      // Calculate membership duration and loyalty level based on CIC join date
+      let membershipStartDate = new Date().toISOString();
+      let membershipDurationMonths = 0;
+      let loyaltyLevel = 'Bronze';
+
+      if (cicJoinDate) {
+        membershipStartDate = new Date(cicJoinDate).toISOString();
+        membershipDurationMonths = calculateMonthsDifference(cicJoinDate, new Date());
+        loyaltyLevel = calculateLoyaltyLevel(membershipDurationMonths);
+        console.log(`📅 CIC Join Date: ${cicJoinDate}, Duration: ${membershipDurationMonths} months, Loyalty: ${loyaltyLevel}`);
+      }
 
       // Create login info document in new_members_info collection
       try {
@@ -124,6 +137,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           size,
           website,
           description,
+          cic_join_date: cicJoinDate || null,
           created_at: new Date().toISOString(),
         };
         
@@ -143,10 +157,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           industry,
           size,
           website,
-          membership_start_date: new Date().toISOString(),
-          membership_duration_months: 0,
-          loyalty_level: 'Bronze',
-          computed_loyalty_level: 'Bronze',
+          membership_start_date: membershipStartDate,
+          membership_duration_months: membershipDurationMonths,
+          loyalty_level: loyaltyLevel,
+          computed_loyalty_level: loyaltyLevel,
           is_approved: true,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),

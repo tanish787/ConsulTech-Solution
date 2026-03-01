@@ -161,28 +161,79 @@ export const getAllListings = async (): Promise<Listing[]> => {
     const listingsRef = collection(db, 'listings');
     const snapshot = await getDocs(listingsRef);
     
-    // Enrich listings with company information
-    const enrichedListings = await Promise.all(
-      snapshot.docs.map(async (doc) => {
-        const listing = { id: doc.id, ...doc.data() } as Listing;
-        
-        // Fetch company info to get name and loyalty level
-        if (listing.company_id) {
-          try {
-            const company = await getCompanyById(listing.company_id);
-            if (company) {
-              listing.company_name = company.company_name;
-              listing.company_logo_url = company.logo_url;
-              listing.company_loyalty_level = company.computed_loyalty_level;
-            }
-          } catch (error) {
-            console.error(`Error fetching company ${listing.company_id}:`, error);
-          }
-        }
-        
-        return listing;
-      })
-    );
+    // Build a map of owner_name to company info from both collections
+    const ownerNameMap = new Map<string, any>();
+    
+    // Check circular_members
+    const circularSnapshot = await getDocs(collection(db, 'circular_members'));
+    circularSnapshot.docs.forEach((doc) => {
+      const company = doc.data();
+      if (company.company_name) {
+        ownerNameMap.set(company.company_name, { 
+          id: doc.id, 
+          ...company,
+          source: 'circular_members'
+        });
+      }
+    });
+    
+    // Check new_members_info (might have additional companies not yet in circular_members)
+    const newMembersSnapshot = await getDocs(collection(db, 'new_members_info'));
+    newMembersSnapshot.docs.forEach((doc) => {
+      const member = doc.data();
+      if (member.company_name && !ownerNameMap.has(member.company_name)) {
+        ownerNameMap.set(member.company_name, { 
+          id: doc.id, 
+          ...member,
+          source: 'new_members_info'
+        });
+      }
+    });
+    
+    // Process listings
+    const enrichedListings = snapshot.docs.map((doc) => {
+      const data = doc.data();
+      
+      // Convert Firestore Timestamp to ISO string if needed
+      let created_at = data.created_at;
+      if (created_at && typeof created_at === 'object' && 'toDate' in created_at) {
+        created_at = (created_at as any).toDate().toISOString();
+      } else if (!created_at) {
+        created_at = new Date().toISOString();
+      }
+      
+      // Map listing_type to category if category doesn't exist
+      const category = data.category || data.listing_type || 'resource';
+      
+      const ownerName = data.owner_name || 'Unknown Company';
+      
+      // Map Firebase schema to Listing type
+      const listing: Listing = {
+        id: doc.id,
+        company_id: '',
+        title: data.short_description || data.title || `${data.material_or_need || category}`,
+        description: data.full_description || '',
+        category,
+        created_at,
+        updated_at: created_at,
+        company_name: ownerName,
+        company_logo_url: undefined,
+        company_loyalty_level: undefined,
+      };
+      
+      // Try to enrich with company info from ownerNameMap
+      if (ownerNameMap.has(ownerName)) {
+        const companyInfo = ownerNameMap.get(ownerName);
+        listing.company_id = companyInfo.id;
+        listing.company_logo_url = companyInfo.logo_url;
+        listing.company_loyalty_level = companyInfo.computed_loyalty_level;
+        console.log(`✅ Found company info for listing "${listing.title}" - owner: ${ownerName} (source: ${companyInfo.source})`);
+      } else {
+        console.warn(`⚠️ No company info found for listing "${listing.title}" - owner: ${ownerName}`);
+      }
+      
+      return listing;
+    });
     
     return enrichedListings;
   } catch (error) {
@@ -194,35 +245,56 @@ export const getAllListings = async (): Promise<Listing[]> => {
 export const getListingsByCompany = async (companyId: string): Promise<Listing[]> => {
   try {
     const listingsRef = collection(db, 'listings');
-    const q = query(listingsRef, where('company_id', '==', companyId));
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocs(listingsRef);
     
-    // Enrich listings with company information
-    const enrichedListings = await Promise.all(
-      snapshot.docs.map(async (doc) => {
-        const listing = { id: doc.id, ...doc.data() } as Listing;
+    // Get company data to filter by owner name
+    const company = await getCompanyById(companyId);
+    if (!company) {
+      return [];
+    }
+    
+    const companyName = company.company_name;
+    
+    // Filter listings by owner_name matching the company name
+    const listings = snapshot.docs
+      .filter((doc) => {
+        const data = doc.data();
+        return data.owner_name === companyName;
+      })
+      .map((doc) => {
+        const data = doc.data();
         
-        // Fetch company info to get name and loyalty level
-        if (listing.company_id) {
-          try {
-            const company = await getCompanyById(listing.company_id);
-            if (company) {
-              listing.company_name = company.company_name;
-              listing.company_logo_url = company.logo_url;
-              listing.company_loyalty_level = company.computed_loyalty_level;
-            }
-          } catch (error) {
-            console.error(`Error fetching company ${listing.company_id}:`, error);
-          }
+        // Convert Firestore Timestamp to ISO string if needed
+        let created_at = data.created_at;
+        if (created_at && typeof created_at === 'object' && 'toDate' in created_at) {
+          created_at = (created_at as any).toDate().toISOString();
+        } else if (!created_at) {
+          created_at = new Date().toISOString();
         }
         
+        // Map listing_type to category if category doesn't exist
+        const category = data.category || data.listing_type || 'resource';
+        
+        // Map Firebase schema to Listing type
+        const listing: Listing = {
+          id: doc.id,
+          company_id: companyId,
+          title: data.short_description || data.title || `${data.material_or_need || category}`,
+          description: data.full_description || '',
+          category,
+          created_at,
+          updated_at: created_at,
+          company_name: companyName,
+          company_logo_url: company.logo_url,
+          company_loyalty_level: company.computed_loyalty_level,
+        };
+        
         return listing;
-      })
-    );
+      });
     
-    return enrichedListings;
+    return listings;
   } catch (error) {
-    console.error('Error fetching listings:', error);
+    console.error('Error fetching listings for company:', error);
     throw error;
   }
 };
@@ -365,6 +437,76 @@ export const deleteCompanyRequest = async (id: string): Promise<void> => {
     await deleteDoc(docRef);
   } catch (error) {
     console.error('Error deleting company request:', error);
+    throw error;
+  }
+};
+
+export const getCompanyEmailByName = async (companyName: string): Promise<string | null> => {
+  try {
+    // Search in circular_members first
+    const circularRef = collection(db, 'circular_members');
+    const circularQuery = query(circularRef, where('company_name', '==', companyName));
+    const circularSnapshot = await getDocs(circularQuery);
+    
+    if (circularSnapshot.docs.length > 0) {
+      const company = circularSnapshot.docs[0].data();
+      if (company.email) {
+        return company.email;
+      }
+    }
+    
+    // If not found in circular_members, search in new_members_info
+    const newMembersRef = collection(db, 'new_members_info');
+    const newMembersQuery = query(newMembersRef, where('company_name', '==', companyName));
+    const newMembersSnapshot = await getDocs(newMembersQuery);
+    
+    if (newMembersSnapshot.docs.length > 0) {
+      const member = newMembersSnapshot.docs[0].data();
+      if (member.email) {
+        return member.email;
+      }
+    }
+    
+    console.warn(`No email found for company: ${companyName}`);
+    return null;
+  } catch (error) {
+    console.error('Error fetching company email:', error);
+    throw error;
+  }
+};
+
+export const getCompanyContactInfo = async (companyName: string): Promise<{ email: string | null; website: string | null }> => {
+  try {
+    // Search in circular_members first
+    const circularRef = collection(db, 'circular_members');
+    const circularQuery = query(circularRef, where('company_name', '==', companyName));
+    const circularSnapshot = await getDocs(circularQuery);
+    
+    if (circularSnapshot.docs.length > 0) {
+      const company = circularSnapshot.docs[0].data();
+      return {
+        email: company.email || null,
+        website: company.website || null,
+      };
+    }
+    
+    // If not found in circular_members, search in new_members_info
+    const newMembersRef = collection(db, 'new_members_info');
+    const newMembersQuery = query(newMembersRef, where('company_name', '==', companyName));
+    const newMembersSnapshot = await getDocs(newMembersQuery);
+    
+    if (newMembersSnapshot.docs.length > 0) {
+      const member = newMembersSnapshot.docs[0].data();
+      return {
+        email: member.email || null,
+        website: member.website || null,
+      };
+    }
+    
+    console.warn(`No contact info found for company: ${companyName}`);
+    return { email: null, website: null };
+  } catch (error) {
+    console.error('Error fetching company contact info:', error);
     throw error;
   }
 };

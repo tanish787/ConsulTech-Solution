@@ -68,6 +68,14 @@ class ApiService {
   async deleteCompanyRequest(id: string): Promise<void> {
     return firebaseService.deleteCompanyRequest(id);
   }
+
+  async getCompanyEmailByName(companyName: string): Promise<string | null> {
+    return firebaseService.getCompanyEmailByName(companyName);
+  }
+
+  async getCompanyContactInfo(companyName: string): Promise<{ email: string | null; website: string | null }> {
+    return firebaseService.getCompanyContactInfo(companyName);
+  }
 }
 
 const apiService = new ApiService();
