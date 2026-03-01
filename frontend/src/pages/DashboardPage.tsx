@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../services/authContext';
 import apiService from '../services/apiService';
+import { invalidateRecommendationsCache } from '../services/recommendationsCache';
 import NavBar from '../components/NavBar';
 import LoyaltyBadge from '../components/LoyaltyBadge';
 import { Company, Listing, CompanyRequest } from '../types';
@@ -123,6 +124,7 @@ const DashboardPage: React.FC = () => {
         created_at: now,
         updated_at: now,
       }, user.id);
+      invalidateRecommendationsCache(company.id);
       // Refresh requests
       const updatedRequests = await apiService.getRequestsByCompany(company.id);
       setRequests(updatedRequests);
@@ -141,8 +143,8 @@ const DashboardPage: React.FC = () => {
 
     try {
       await apiService.deleteCompanyRequest(requestId);
-      // Refresh requests
       if (company) {
+        invalidateRecommendationsCache(company.id);
         const updatedRequests = await apiService.getRequestsByCompany(company.id);
         setRequests(updatedRequests);
       }
