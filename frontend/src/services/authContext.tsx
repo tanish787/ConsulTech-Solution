@@ -106,42 +106,58 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (email: string, password: string, companyName: string, industry: string = '', size: string = 'small', website: string = '', description: string = '') => {
     try {
+      console.log('📝 Starting registration for:', companyName);
+      
       // Create Firebase user account
       const result = await createUserWithEmailAndPassword(auth, email, password);
       const uid = result.user.uid;
+      console.log('✓ Firebase user created:', uid);
 
       // Create login info document in new_members_info collection
-      const newMembersRef = collection(db, 'new_members_info');
-      const loginData = {
-        uid,
-        email,
-        company_name: companyName,
-        industry,
-        size,
-        website,
-        description,
-        created_at: new Date().toISOString(),
-      };
-      
-      await setDoc(doc(newMembersRef, uid), loginData);
+      try {
+        const newMembersRef = collection(db, 'new_members_info');
+        const loginData = {
+          uid,
+          email,
+          company_name: companyName,
+          industry,
+          size,
+          website,
+          description,
+          created_at: new Date().toISOString(),
+        };
+        
+        await setDoc(doc(newMembersRef, uid), loginData);
+        console.log('✓ Login info saved to new_members_info');
+      } catch (error) {
+        console.error('❌ Error saving to new_members_info:', error);
+        // Continue anyway - this is secondary
+      }
 
       // Create company profile in circular_members collection
-      const circularMembersRef = collection(db, 'circular_members');
-      const companyProfile = {
-        company_name: companyName,
-        description,
-        industry,
-        size,
-        website,
-        membership_start_date: new Date().toISOString(),
-        membership_duration_months: 0,
-        computed_loyalty_level: 'Bronze',
-        is_approved: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-      
-      await setDoc(doc(circularMembersRef, uid), companyProfile);
+      try {
+        const circularMembersRef = collection(db, 'circular_members');
+        const companyProfile = {
+          company_name: companyName,
+          description,
+          industry,
+          size,
+          website,
+          membership_start_date: new Date().toISOString(),
+          membership_duration_months: 0,
+          loyalty_level: 'Bronze',
+          computed_loyalty_level: 'Bronze',
+          is_approved: true,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        };
+        
+        await setDoc(doc(circularMembersRef, uid), companyProfile);
+        console.log('✓ Company profile saved to circular_members');
+      } catch (error) {
+        console.error('❌ Error saving to circular_members:', error);
+        throw new Error('Failed to create company profile. Check Firebase security rules allow writes to circular_members collection.');
+      }
 
       // Set user state
       const idToken = await result.user.getIdToken();
@@ -152,8 +168,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         company_id: uid,
         role: 'member',
       });
+      console.log('✓ Registration completed successfully');
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('❌ Registration error:', error);
       throw error;
     }
   };

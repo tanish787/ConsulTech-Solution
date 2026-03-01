@@ -199,11 +199,19 @@ const DashboardPage: React.FC = () => {
               <span className="text-lg font-semibold text-gray-900">{membershipTierLevel}</span>
             </div>
 
-            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-              <p className="text-sm text-emerald-900">
-                <strong>✓ Silver+ members</strong> (3+ months) can create and manage listings. You qualify!
-              </p>
-            </div>
+            {canCreateListings ? (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                <p className="text-sm text-emerald-900">
+                  <strong>✓ Silver+ members</strong> (3+ months) can create and manage listings. You qualify!
+                </p>
+              </div>
+            ) : (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                <p className="text-sm text-amber-900">
+                  You need <strong>{3 - (company.membership_duration_months || 0)} more months</strong> to unlock listing creation at Silver tier.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Upgrade Progress */}
